@@ -350,10 +350,131 @@
 	
 	\section{Modele GARCH}
 	
+	\begin{frame}{Stylizowane fakty}
+		\textbf{Stylizowane fakty dla stóp zwrotu:}
+		\begin{itemize}
+			\item Rozkłady stóp zrotu mają grubsze ogony niż rozkład normalny.
+			\item Wartości stóp zwrotu są nieskorelowane, ale ich kwadraty są skorelowane.
+			\item Duże zmianny wartości stóp zwrotu następują często po wcześniejszych dużych zmianach.
+		\end{itemize}
+	\end{frame}
+	
 	\begin{frame}{Model ARCH}
+		\begin{block}{\textbf{Model ARCH}}
+			Powiemy, że szereg czasowy $r_t$ jest procesem $\mbox{ARCH}\left(p\right),$ jeżeli \begin{eqnarray*}
+				r_t & = & \sigma_t \epsilon_t,\\
+				\sigma^2_t & = & \alpha_0 + \sum_{j=1}^{p} \alpha_j r_{t-j}^2,
+			\end{eqnarray*} gdzie
+			\begin{itemize}
+				\item $\epsilon_t \mbox{ iid } \mbox{WN}\left(0, 1\right),$
+				\item $\alpha_0 > 0,$
+				\item $\alpha_j \geq 0$ dla $j=1,2,\ldots,p.$
+			\end{itemize}
+		\end{block}
+		\begin{alert}{\textbf{Uwaga.}}
+			Model $\mbox{ARCH}$ jest często wykorzystywany do opisu reszt w modelach $\mbox{ARMA}.$
+		\end{alert}
+	\end{frame}
+	
+	\begin{frame}{Stacjonarność}
+		\begin{block}{\textbf{Stacjonarność}}
+			Stacjonarne szeregi czasowe typu $\mbox{ARCH}\left(p\right)$ spełniają nierówność \[
+				\sum_{j=1}^{p} \alpha_j < 1.
+			\]
+		\end{block}
+	\end{frame}
+	
+	\begin{frame}{Warunkowa wariancja}
+		Niech $\boldsymbol{\mathcal{R}}_{\tau}$ będzie zbiorem wszystkich informacji o szeregu
+		czasowym $r_t$ do chwili czasu $\tau.$ Wówczas: \begin{eqnarray*}
+			\mbox{Var}\left( r_t \mid \boldsymbol{\mathcal{R}}_{t-1} \right) & = &
+				\mathbb{E}\left( r_t^2 \mid \boldsymbol{\mathcal{R}}_{t-1} \right) -
+				\mathbb{E}^2\left( r_t \mid \boldsymbol{\mathcal{R}}_{t-1} \right),\\
+			\mbox{Var}\left( r_t \mid \boldsymbol{\mathcal{R}}_{t-1} \right) & = &
+				\mathbb{E}\left( \sigma_t^2 \epsilon_t^2 \mid \boldsymbol{\mathcal{R}}_{t-1} \right) -
+				\mathbb{E}^2\left( \sigma_t \epsilon_t \mid \boldsymbol{\mathcal{R}}_{t-1} \right),\\
+			\mbox{Var}\left( r_t \mid \boldsymbol{\mathcal{R}}_{t-1} \right) & = &
+				\sigma_t^2 \mathbb{E}\left( \epsilon_t^2 \mid \boldsymbol{\mathcal{R}}_{t-1} \right) -
+				\sigma_t^2 \mathbb{E}^2\left( \epsilon_t \mid \boldsymbol{\mathcal{R}}_{t-1} \right),\\
+			\mbox{Var}\left( r_t \mid \boldsymbol{\mathcal{R}}_{t-1} \right) & = &
+				\sigma_t^2 \mathbb{E}\left( \epsilon_t^2 \right) -
+				\sigma_t^2 \mathbb{E}^2\left( \epsilon_t \right),\\
+			\mbox{Var}\left( r_t \mid \boldsymbol{\mathcal{R}}_{t-1} \right) & = &
+				\sigma_t^2.
+		\end{eqnarray*}
+		\begin{alert}{\textbf{Wniosek.}}
+			$\sigma_t^2$ jest warunkową wariancją procesu $r_t$ pod warunkiem przeszłości
+			$\boldsymbol{\mathcal{R}}_{t-1}.$
+		\end{alert}
+	\end{frame}
+	
+	\begin{frame}{Efekt ARCH}
+		\framesubtitle{Test Engle'a}
+		Szacujemy parametry modelu: \[
+			r_t^2 = \alpha_0 + \sum_{j=1}^p \alpha_j r_{t-j}^2 + \eta_t, \eta_t \mbox{ iid } \mbox{WN}\left(0, s\right).
+		\]
+		\\~\\
+		Testujemy hipotezę postaci: \[
+			H_0: \sum_{j=1}^p \alpha_j^2 = 0.
+		\]
+		\\~\\
+		Statystyka testowa przyjmuje postać: \[
+			LM = T R^2 \rightarrow \chi^2_p,
+		\] gdzie $R^2$ to współczynnik determinacji modelu wyjściowego.
+	\end{frame}
+	
+	\begin{frame}{Efekt ARCH}
+		\framesubtitle{Test McLeoda-Li}
+		Badamy szereg czasowy kwadratów wartości szeregu czsowego wyjściowego $r_t.$
+		\\~\\
+		Testujemy hipotezę postaci \[
+			H_{0}: \sum_{j=1}^{h} \rho^{2}_j = 0.
+		\]
+		\\~\\
+		Statystyka testowa przyjmuje postać: \[
+			T_{LB} = n \left(n + 2\right) \sum_{j=1}^{h}
+				\frac{\hat{\rho}^{2}_j}{n - j} \rightarrow \chi^{2}_{h},
+		\] gdzie \[
+			\hat{\rho_j} = \frac{\sum_{t=h+1}^T r_t^2 r_{t-h}^2}{\sum_{t=1}^T r_t^4}.
+		\]
 	\end{frame}
 	
 	\begin{frame}{Model GARCH}
+		\begin{block}{\textbf{Model GARCH}}
+			Powiemy, że szereg czasowy $r_t$ jest procesem $\mbox{GARCH}\left(p,q\right),$ jeżeli \begin{eqnarray*}
+				r_t & = & \sigma_t \epsilon_t,\\
+				\sigma^2_t & = & \alpha_0 + \sum_{j=1}^{q} \alpha_j r_{t-j}^2 + \sum_{j=1}^{p} \beta_j \sigma_{t-j}^2,
+			\end{eqnarray*} gdzie
+			\begin{itemize}
+				\item $\epsilon_t \mbox{ iid } \mbox{WN}\left(0, 1\right),$
+				\item $\alpha_0 > 0,$
+				\item $\alpha_j \geq 0$ dla $j=1,2,\ldots,q,$
+				\item $\beta_j \geq 0$ dla $j=1,2,\ldots,p.$
+			\end{itemize}
+		\end{block}
+		\begin{alert}{\textbf{Uwaga.}}
+			Model $\mbox{GARCH}$ jest często wykorzystywany do opisu reszt w modelach $\mbox{ARMA}.$
+		\end{alert}
+	\end{frame}
+	
+	\begin{frame}{Właściwości}
+		\begin{itemize}
+			\item Przy spełnieniu odpowiednich założeń model $\mbox{GARCH}$ można sprowadzić
+				do postaci modelu $\mbox{ARCH}.$
+			\item Model $\mbox{GARCH}\left(p,q\right)$ można przedstawić w postaci modelu
+				$\mbox{ARMA}\left(m,p\right)$ dla szeregu $r_t^2,$ gdzie $m=\max\left(p,q\right).$
+		\end{itemize}
+		\begin{block}{\textbf{Stacjonarność}}
+			Stacjonarne szeregi czasowe typu $\mbox{GARCH}\left(p,q\right)$ spełniają nierówność \[
+				\sum_{j=1}^{q} \alpha_j + \sum_{j=1}^{p} \beta_j < 1.
+			\]
+		\end{block}
+	\end{frame}
+	
+	\begin{frame}{Estymacja}
+	\end{frame}
+	
+	\begin{frame}{Predykcja}
 	\end{frame}
 	
 	\begin{frame}{Model GARCH-M}
@@ -367,7 +488,38 @@
 	
 	\section{Model ECM}
 	
-	\begin{frame}{Definicja}
+	\begin{frame}{Kointegracja}
+		\begin{alert}{\textbf{Idea.}}
+			Chcemy wiedzieć, czy bazując na pewnej grupie niestacjonarnych 
+			szeregów czasowych możemy bezpiecznie zbudować model.
+		\end{alert}
+		\begin{block}{\textbf{Kointegracja}}
+			Powiemy, że szeregi czasowe $X_{1,t}, X_{2,t}, \ldots, X_{n,t}$ są skointegrowane w stopniu $\left(d,b\right),$ jeżeli dla każdego $i=1,2,\ldots,n$ zachodzi \[
+				X_{i,t} \sim I\left(d\right)
+			\] oraz istnieją takie wartości $\beta_1,\beta_2,\ldots,\beta_n,$ że \[
+				\beta_1 X_{1,t} + \beta_2 X_{2,t} + \ldots + \beta_n X_{n,t} \sim I\left(d - b\right).
+			\]
+		\end{block}
+		\begin{alert}{\textbf{Intuicja.}}
+			Relacje pomiędzy skointegrowanymi niestacjonarnymi szeregami 
+			czasowymi pozostają w długiej perspektywie czasowej niezmienne.
+		\end{alert}
+	\end{frame}
+	
+	\begin{frame}{Testowanie kointegracji}
+		\textbf{Procedura Engle'a-Grangera.}
+		\begin{enumerate}
+			\item Należy zweryfikować czy wszystkie analizowane szeregi czasowe 
+				charakteryzuje ten sam stopień integracji.
+			\item Należy zbudować model regresji liniowej wielorakiej w którym 
+				jeden z analizowanych szeregów pełni rolę zmiennej objaśnianej, 
+				pozosałe natomiast zmiennych objaśniających.
+			\item Należy przetestować stopień integracji reszt wyznaczonego w 
+				poprzednim kroku modelu.
+		\end{enumerate}
+	\end{frame}
+	
+	\begin{frame}{Model ECM}
 		\begin{block}{\textbf{Model korekty błędem (ECM)}}
 			\[
 				\Delta y_{t} =
