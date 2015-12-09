@@ -472,9 +472,89 @@
 	\end{frame}
 	
 	\begin{frame}{Estymacja}
+		Estymacja modeli klasy GARCH odbywa się z wykorzystaniem metody
+		największej wiarogodności. Maksymalizuje się funkcję log-wiarogodności \[
+			L_T\left(\boldsymbol{\theta}\right) =
+				\sum_{t=1}^{T} \ell_t\left(\boldsymbol{\theta}\right),
+		\] gdzie
+		\begin{itemize}
+			\item $\boldsymbol{\theta}$ --- wektor wszystkich parametrów modelu,
+			\item $\ell_t\left(\boldsymbol{\theta}\right)$ --- funkcja log-wiarogodności
+				dla obserwacji z chwili czasu $t.$
+		\end{itemize}
 	\end{frame}
 	
-	\begin{frame}{Predykcja}
+	\begin{frame}{Estymacja}
+		\framesubtitle{Przypadek reszt o rozkładzie normalnym}
+		
+		Niech dane będzie równanie \[
+			r_t = \sigma_t \epsilon_t,
+		\] gdzie $\epsilon_t \mbox{ iid } \mathcal{N}\left(0, 1\right).$
+		\\~\\
+		Funkcja log-wiarogodności dla tego równania w chwili czasu $t$ wyraża się
+		wzorem \[
+			\ell_t\left(\boldsymbol{\theta}\right) = 
+				\log \frac{1}{\sqrt{2\pi}\sigma_t} e^{-\frac{r_t^2}{2\sigma_t^2}} = 
+				-\frac{r_t^2}{2\sigma_t^2} - \log \sigma_t - \log \sqrt{2\pi}.
+		\]
+		
+		Finalna postać tej funkcji zależy od sposobu zdefiniowania
+		warunkowej wariancji $\sigma_t^2$ w danym modelu klasy GARCH.
+	\end{frame}
+	
+	\begin{frame}{Ocena jakości modelu}
+		\framesubtitle{Idea}
+		\begin{block}{\textbf{Idea}}
+			Inwestor jest bardziej zainteresowany poznaniem kierunku zmian kursu
+			instrumentu finansowego, niż dokładną wartością tego kursu.
+		\end{block}
+	\end{frame}
+	
+	\begin{frame}{Ocena jakości modelu}
+		\framesubtitle{Miary zgodności kierunku zmian stopy zwrotu}
+		Niech:
+		\begin{itemize}
+			\item $r_t$ --- rzeczywista wartość stopy zwrotu w chwili czasu $t,$
+			\item $\hat{r}_t$ --- predykowana wartość stopy zwrotu w chwili czasu $t.$
+		\end{itemize}
+		Podstawowe miary zgodności kierunku zmian stopy zwrotu to:
+		\begin{eqnarray*}
+			Q_1 & = & \frac{
+				\#\left\{t: r_t \hat{r}_t > 0\right\}
+			}{
+				\#\left\{t: r_t \hat{r}_t \neq 0\right\}
+			},\\
+			Q_2 & = & \frac{
+				\#\left\{t: r_{t-1} r_t < 0 \wedge r_t \hat{r}_t > 0\right\}
+			}{
+				\#\left\{t: r_{t-1} r_t < 0 \wedge r_t \hat{r}_t \neq 0\right\}
+			}.
+		\end{eqnarray*}
+	\end{frame}
+	
+	\begin{frame}{Ocena jakości modelu}
+		\framesubtitle{Modyfikacje miary $Q_1$}
+		
+		Uwzględniając koszta transakcji w wysokości $g$ możemy miarę $Q_1$
+		zmodyfikować w następujący sposób:\[
+			Q_1^{\prime} = \frac{
+				\#\left\{t: r_t > g \wedge r_t \hat{r}_t > 0\right\}
+			}{
+				\#\left\{t: r_t > g \wedge r_t \hat{r}_t \neq 0\right\}
+			}.
+		\]
+		
+		W przypadku modeli pozwalających szacować wyłącznie zmienność stopy zwortu
+		$\sigma_t$ (np. modele GARCH bez części ARIMA) możemy zastosować następującą
+		modyfikację miary $Q_1:$ \[
+			Q_1^{x} = \frac{
+				\#\left\{t: r_t \Delta \hat{\sigma}_t < 0\right\}
+			}{
+				\#\left\{t: r_t \Delta \hat{\sigma}_t \neq 0\right\}
+			}.
+		\]
+		
+		
 	\end{frame}
 	
 	\begin{frame}{Model GARCH-M}
