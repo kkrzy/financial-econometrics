@@ -1,0 +1,561 @@
+\documentclass[a4paper, 11pt]{beamer}
+
+\usepackage{polski}
+\usepackage[utf8]{inputenc}
+\usepackage{units}
+
+\mode<presentation> {
+	\usetheme{Frankfurt}
+	\setbeamercovered{transparent}
+	\usecolortheme{default}
+}
+
+\title{Ekonometria Finansowa}
+\subtitle{Wielowymiarowe modele szeregów czasowych}
+\author{mgr Paweł Jamer\thanks{pawel.jamer@gmail.com}}
+
+\begin{document}
+
+	\begin{frame}
+		\titlepage
+	\end{frame}
+	
+	\section{Model VAR}
+	
+	\begin{frame}{Model VAR}
+		\begin{block}{\textbf{Model Wektorowej Autoregresji (VAR)}}
+			Niech dany będzie szereg czasowy $\boldsymbol{Y}_{t} = 
+			\left[Y_{1,t}, Y_{2,t}, \ldots, Y_{n,t}\right]^{\prime}.$ 
+			Modelem wektorowej autoregresji o $p$ opóźnieniach szeregu 
+			$\boldsymbol{Y}_{t}$ nazwiemy model opisany równaniem
+			\[
+				\boldsymbol{Y}_{t} =
+					\sum_{i=1}^{p}
+						\boldsymbol{A}_{i} \boldsymbol{Y}_{t-i} +
+						\boldsymbol{\epsilon}_{t},
+			\]
+			gdzie
+			\begin{itemize}
+				\item $\mathbb{E}\left(\boldsymbol{\epsilon}_{t}\right) = 
+					\boldsymbol{0},$
+				\item $\mathbb{E}\left(
+					\boldsymbol{\epsilon}_{t}
+					\boldsymbol{\epsilon}_{t}^{\prime}
+				\right) = \boldsymbol{\Omega}$ --- macierz dodatnio 
+				określona,
+				\item $\mathbb{E}\left(
+					\boldsymbol{\epsilon}_{t}
+					\boldsymbol{\epsilon}_{s}^{\prime}
+				\right) = \boldsymbol{0}$ dla $t \neq s.$
+			\end{itemize}
+		\end{block}
+		\begin{alert}{\textbf{Uwaga.}}
+			Model wektorowej autoregresji o $p$ opóźnieniach przyjęło 
+			się oznaczać symbolem $\mbox{VAR}\left(p\right).$
+		\end{alert}
+	\end{frame}
+	
+	\begin{frame}{Właściwości}
+		Model $\mbox{VAR}:$
+		\begin{itemize}
+			\item ma często dobre właściwościami prognostyczne i 
+				symulacyjne,
+			\item dopuszcza pełną dowolność co do wartości parametrów,
+			\item uwzględnia występowanie zależności pomiędzy zmiennymi,
+			\item traktuje wszystkie zmienne jako objaśniane oraz 
+				objaśniające,
+			\item nie jest związany z żadną konkretną teorią 
+				ekonomiczną,
+			\item wymaga oszacowania wielu parametrów.
+		\end{itemize}
+	\end{frame}
+	
+	\begin{frame}{Reprezentacja VAR(1)}
+		Rozpatrzmy proces VAR(p) \[
+			\boldsymbol{Y}_{t} =
+				\sum_{i=1}^{p}
+					\boldsymbol{A}_{i} \boldsymbol{Y}_{t-i} +
+					\boldsymbol{\epsilon}_{t}.
+		\]
+		Proces ten zapisać możemy jako \[
+			\left[\begin{matrix}
+				\boldsymbol{Y}_{t}\\
+				\boldsymbol{Y}_{t-1}\\
+				\vdots\\
+				\boldsymbol{Y}_{t-\left(p-1\right)}
+			\end{matrix}\right] = \left[\begin{matrix}
+				\boldsymbol{A}_{1} & 
+				\cdots & \boldsymbol{A}_{p-1} & \boldsymbol{A}_{p}\\
+				\boldsymbol{I} & 
+				\cdots & \boldsymbol{0} & \boldsymbol{0}\\
+				\vdots & \ddots & \vdots & \vdots\\
+				\boldsymbol{0} & 
+				\cdots & \boldsymbol{I} & \boldsymbol{0}
+			\end{matrix}\right] \left[\begin{matrix}
+				\boldsymbol{Y}_{t-1}\\
+				\boldsymbol{Y}_{t-2}\\
+				\vdots\\
+				\boldsymbol{Y}_{t-p}
+			\end{matrix}\right] + \left[\begin{matrix}
+				\boldsymbol{\epsilon}_{t}\\
+				\boldsymbol{0}\\
+				\vdots\\
+				\boldsymbol{0}
+			\end{matrix}\right],
+		\]
+		a zatem jako proces VAR(1).
+	\end{frame}
+	
+	\begin{frame}{Model VMA}
+		\begin{block}{\textbf{Model Wektorowej Średniej Ruchomej (VMA)}}
+			Niech dany będzie szereg czasowy $\boldsymbol{Y}_{t} = 
+			\left[Y_{1,t}, Y_{2,t}, \ldots, Y_{n,t}\right]^{\prime}.$ 
+			Modelem wektorowej średniej ruchomej o $q$ opóźnieniach szeregu 
+			$\boldsymbol{Y}_{t}$ nazwiemy model opisany równaniem
+			\[
+				\boldsymbol{Y}_{t} =
+					\boldsymbol{\epsilon}_{t} + 
+					\sum_{i=1}^{q}
+						\boldsymbol{M}_{i} \boldsymbol{\epsilon}_{t-i},
+			\]
+			gdzie
+			\begin{itemize}
+				\item $\mathbb{E}\left(\boldsymbol{\epsilon}_{t}\right) = 
+					\boldsymbol{0},$
+				\item $\mathbb{E}\left(
+					\boldsymbol{\epsilon}_{t}
+					\boldsymbol{\epsilon}_{t}^{\prime}
+				\right) = \boldsymbol{\Omega}$ --- macierz dodatnio 
+				określona,
+				\item $\mathbb{E}\left(
+					\boldsymbol{\epsilon}_{t}
+					\boldsymbol{\epsilon}_{s}^{\prime}
+				\right) = \boldsymbol{0}$ dla $t \neq s.$
+			\end{itemize}
+		\end{block}
+		\begin{alert}{\textbf{Uwaga.}}
+			Model wektorowej średniej ruchomej o $q$ opóźnieniach
+			przyjęło się oznaczać symbolem $\mbox{VMA}\left(q\right).$
+		\end{alert}
+	\end{frame}
+	
+	\begin{frame}{Reprezentacja VMA($\infty$)}
+		Dowolny model wektorowej autoregresji przedstawić można w postaci
+		modelu wektorowej średniej ruchomej o nieskończonej liczbie
+		opóźnień \[
+			\boldsymbol{Y}_{t} =
+				\boldsymbol{\epsilon}_{t} + 
+				\sum_{i=1}^{\infty}
+					\boldsymbol{M}_{i} \boldsymbol{\epsilon}_{t-i}.
+		\]
+		W szczególności model $\mbox{VAR}\left(1\right)$ przyjmuje postać \[
+			\boldsymbol{Y}_{t} =
+				\boldsymbol{\epsilon}_{t} + 
+				\sum_{i=1}^{\infty}
+					\boldsymbol{A}^{i} \boldsymbol{\epsilon}_{t-i},
+		\]
+	\end{frame}
+	
+	\begin{frame}{Stabilność}
+		\framesubtitle{Definicja}
+		\begin{block}{\textbf{Stabilność}}
+			Model VAR nazywamy stabilnym, jeżeli \[
+				\lim_{k\rightarrow\infty}\left(\boldsymbol{A}^k\right) = 
+					\boldsymbol{0},
+			\] gdzie $\boldsymbol{A}$ jest macierzą parametrów reprezentacji
+			$\mbox{VAR}\left(1\right)$ analizowanego modelu VAR.
+		\end{block}
+		\begin{alert}{\textbf{Intuicja.}}
+			Wpływ zaburzenia $\boldsymbol{\epsilon}_t$ na
+			$\boldsymbol{Y}_t$ wygasa w miarę czasu.
+		\end{alert}
+	\end{frame}
+	
+	\begin{frame}{Stabilność}
+		\framesubtitle{Twierdzenie}
+		\begin{block}{\textbf{Twierdzenie}}
+			Model $\mbox{VAR}\left(p\right)$ jest stabilny, gdy \[
+				\det\left(\boldsymbol{I} - \sum_{i=1}^{p}\boldsymbol{A}_i z^{i}\right) \neq 0
+			\] dla $\left| z \right| \leq 0.$
+		\end{block}
+	\end{frame}
+	
+	\begin{frame}{Stabilność}
+		\framesubtitle{Testowanie}
+		\textbf{Rekursywna estymacja parametrów.}\\
+			Szacuje się parametry modelu VAR na podstawie pierwszych $\tau$ obserwacji,
+			gdzie $\tau$ przyjmuje kolejno wartości $T_0, T_0 + 1, \ldots, T.$ Jako $T_0$
+			wybiera się najmniejszą wartość dla której możliwe jest zbudowanie modelu.
+			Następnie rysuje się wykresy szeregów uzyskanych oszacowań wraz ze średnimi
+			błędami szacunku.
+		\\~\\
+		\textbf{Testy statystyczne.}
+		\begin{itemize}
+			\item Test CUSUM.
+			\item Test Chowa.
+		\end{itemize}
+	\end{frame}
+	
+	\begin{frame}{Rozszerzenia modelu VAR}
+		\framesubtitle{Zmienne deterministyczne}
+		W równaniu modelu VAR często uwzględnia się zmienne deterministyczne
+		(np. stałą, trend, sezonowość): \[
+			\boldsymbol{Y}_{t} =
+				\boldsymbol{A}_0 \boldsymbol{D}_t +
+				\sum_{i=1}^{p}
+					\boldsymbol{A}_{i} \boldsymbol{Y}_{t-i} +
+					\boldsymbol{\epsilon}_{t},
+		\] gdzie
+		\begin{itemize}
+			\item $\boldsymbol{D}_t$ --- macierz zmiennych
+			deterministycznych,
+			\item $\boldsymbol{A}_0$ --- macierz parametrów
+				związanych z $\boldsymbol{D}_t.$
+		\end{itemize}
+	\end{frame}
+	
+	\begin{frame}{Rozszerzenia modelu VAR}
+		\framesubtitle{Zmienne egzogeniczne}
+		Innym typem często uwzględnianych w modelu VAR zmiennych
+		są zmienne stochastyczne nie podlegające modelowaniu
+		(zmienne egzogeniczne): \[
+			\boldsymbol{Y}_{t} =
+				\sum_{i=1}^{p}
+					\boldsymbol{A}_{i} \boldsymbol{Y}_{t-i} +
+				\boldsymbol{B} \boldsymbol{Z}_t +
+				\boldsymbol{\epsilon}_{t},
+		\] gdzie
+		\begin{itemize}
+			\item $\boldsymbol{Z}_t$ --- macierz zmiennych
+			egzogenicznych,
+			\item $\boldsymbol{B}$ --- macierz parametrów
+				związanych z $\boldsymbol{Z}_t.$
+		\end{itemize}
+	\end{frame}
+	
+	\begin{frame}{Egzogeniczność}
+		\framesubtitle{Definicje}
+		
+		\begin{block}{\textbf{Słaba egzogeniczność}}
+			Zmienna $z_t$ jest nazywana słabo egzogeniczną dla wektora parametrów
+			$\boldsymbol{\theta}$ jeżeli estymacja parametrów $\boldsymbol{\theta}$
+			z modelu warunkowego warunkowanego zmienną $z_t$ nie powoduje utraty
+			informacji względem estymacji tych parametrów z modelu pełnego.
+		\end{block}
+		
+		\begin{block}{\textbf{Silna egzogeniczność}}
+			Zmienna $z_t$ jest nazywana silnie egzogeniczną dla wektora parametrów
+			$\boldsymbol{\theta},$ jeżeli jest ona dla niego słabo egzogeniczna oraz
+			prognoza $\boldsymbol{Y}_t$ może zostać przeprowadzona bez utraty
+			dokładności na podstawie modelu warunkowego pod warunkiem $z_t.$
+		\end{block}
+		
+	\end{frame}
+
+	\begin{frame}{Selekcja optymalnego $p$}
+		Metody selekcji optymalnej wartości parametru $p:$
+		\begin{itemize}
+			\item przesłanki teoretyczne,
+			\item kryteria informacyjne,
+			\item testy istotności parametrów dla ostatnich opóźnień,
+			\item analiza reszt modelu (np. statystyka Ljunga-Boxa).
+		\end{itemize}
+	\end{frame}
+	
+	\begin{frame}{Selekcja optymalnego $p$}
+		\framesubtitle{Kryteria informacyjne}
+		Wyboru optymalnej wartości parametru $p$ dokonuje się 
+		minimalizując wartość wybranego kryterium informacyjnego.
+		\begin{block}{\textbf{Kryterium Akaike}}
+			\[
+				AIC =
+					-2\frac{\ln\left(L\right)}{T} + 
+					k\frac{2}{T}
+			\]
+		\end{block}
+		\begin{block}{\textbf{Kryterium Schwarza}}
+			\[
+				SC =
+					-2\frac{\ln\left(L\right)}{T} +
+					k \frac{\ln\left(T\right)}{T}
+			\]
+		\end{block}
+		\begin{block}{\textbf{Kryterium Hannana-Quinna}}
+			\[
+				HQ = 
+					-2\frac{\ln\left(L\right)}{T} +
+					k \frac{\ln\left(\ln\left(T\right)\right)}{T}
+			\]
+		\end{block}
+	\end{frame}
+
+	\begin{frame}{Estymacja}
+		Jeżeli każde z równań modelu VAR posiada ten sam zbiór zmiennych
+		objaśniających, to estymacja parametrów całego modelu może zostać
+		przeprowadzona poprzez zastosowanie metody najmniejszych kwadratów
+		do każdego z równań osobno.
+		\\~\\
+		Alternatywą jest zastosowanie metody największej wiarogodności do
+		wszystkich równań modelu łącznie.
+	\end{frame}
+	
+	\section{Kopula}
+	
+	\begin{frame}{Definicja}
+		\begin{block}{\textbf{Kopula}}
+			Funkcja $C:\mathbb{I}^{2}\rightarrow\mathbb{I}$ spełniająca następujące warunki
+			\begin{enumerate}
+				\item $C\left(0,t\right) = C\left(t,0\right) = 0,$
+        \item $C\left(1,t\right) = C\left(t,1\right) = t,$
+				\item $C\left(u_2, v_2\right) - C\left(u_1, v_2\right) - C\left(u_2, v_1\right) + C\left(u_1 ,v_1\right) \geq 0,$
+			\end{enumerate}
+			dla $t, u_1, u_2, v_1, v_2 \in \mathbb{I},$ $u_1 \leq u_2,$ $v_1 \leq v_2,$
+		\end{block}
+    
+		\begin{alert}{\textbf{Intuicja.}}
+			Kopula to dystrybuanta wielowymiarowa, której dystrybuanty brzegowe pochodzą z rozkładu jednostajnego na $\mathbb{I}$.
+		\end{alert}
+	\end{frame}
+	
+	\begin{frame}{Twierdzenie Sklara}
+
+		\begin{block}{\textbf{Twierdzenie}}
+			\textbf{Niech:}
+			\begin{itemize}
+				\item $F$ --- dystrybuanta łączna 2-wymiarowa,
+				\item $F_{1}, F_{2}$ --- dystrybuanty brzegowe $F.$
+			\end{itemize}
+			\textbf{Wówczas:}
+			\begin{itemize}
+				\item istnieje kopula $C$ taka, że dla dowolnego punktu
+					$\left(x_{1}, x_{2}\right) \in \overline{\mathbb{R}}^{2}$
+					zachodzi
+					\begin{equation}\label{eq:sklartheorem}
+						F\left(x_{1}, x_{2}\right) = C\left(F_1\left(x_1\right), F_2\left(x_2\right)\right).
+					\end{equation}
+			\end{itemize}
+			\textbf{Ponadto:}
+			\begin{itemize}
+				\item jeśli $F_{1}, F_{2}$ są ciągłe, to $C$ jest wyznaczona jednoznacznie.
+				\item jeśli funkcja $C$ jest kopulą, a  $F_{1}, F_{2}$ są dystrybuantami, to zależność
+					\eqref{eq:sklartheorem} wyznacza dystrybuantę wielowymiarową $F.$
+			\end{itemize}
+		\end{block}
+		
+	\end{frame}
+	
+	\begin{frame}{Twierdzenie Sklara}
+		\framesubtitle{Wnioski}
+		
+		\begin{alert}{\textbf{Interpretacja.}}
+			Problem modelowania wielowymiarowego szeregu czasowego
+			rozdzielić można na dwa podproblemy
+			\begin{itemize}
+				\item modelowania jednowymiarowych szeregów składowych,
+				\item modelowania współzależności łączących te szeregi.
+			\end{itemize}
+		\end{alert}
+		
+		\begin{alert}{\textbf{Uwaga.}}
+			Twierdzenie Sklara przenosi się bez zmian również na
+			przypadek rozkładów warunkowych.
+		\end{alert}
+		
+		\begin{alert}{\textbf{Uwaga.}}
+			Łączenie jednowymiarowych szeregów czasowych za pomocą różnych
+			kopul pozwala skupić się na modelowaniu różnych współzależności.
+		\end{alert}
+	\end{frame}
+	
+	\begin{frame}{Miary współzależności}
+		\framesubtitle{Współczynnik Kendalla}
+		\begin{block}{\textbf{Współczynnik $\tau$ Kendalla}}
+			Niech $X_{i,1}, X_{i,2} \sim X_{i}$ dla $i=1,2.$ Wówczas współczynnikiem 
+			$\tau$ Kendalla zmiennych $X_1$ i $X_2$ nazwiemy \begin{eqnarray*}
+					\tau\left(X_{1},X_{2}\right) & = &
+						P\left(\left(X_{1,1}-X_{1,2}\right)\left(X_{2,1}-X_{2,2}\right)>0\right) - \\
+						& & P\left(\left(X_{1,1}-X_{1,2}\right)\left(X_{2,1}-X_{2,2}\right)<0\right).
+				\end{eqnarray*}
+		\end{block}
+  
+		\begin{block}{\textbf{Twierdzenie}}
+			Niech $X_{1}$ i $X_{2}$ będą ciągłymi zmiennymi losowymi o współzależnościach opisanych kopulą C.
+			Wówczas $\tau$ Kendalla zmiennych losowych $X_{1}$ i $X_{2}$ daje się przedstawić jako \[
+				\tau\left(X_{1},X_{2}\right)=4\int_{0}^{1}\int_{0}^{1}C\left(u,v\right)dC\left(u,v\right)-1.
+			\]
+		\end{block}
+	\end{frame}
+	
+	\begin{frame}{Miary współzależności}
+		\framesubtitle{Współczynnik Spearmana}
+		\begin{block}{\textbf{Współczynnik $\rho$ Spearmana}}
+			Niech $X_1$ i $X_2$ będą ciągłymi zmiennymi losowymi o dystrybuantach odpowiednio
+			$F_1$ i $F_2.$ Niech $\rho$ oznacza współczynnik korelacji Pearsona. Wówczas współczynnikiem
+			$\rho$ Spearmana nazwiemy \[
+				\rho_{S}\left(X_{1},X_{2}\right)=\rho\left(F_{1}\left(X_{1}\right),F_{2}\left(X_{2}\right)\right).
+			\]
+		\end{block}
+	
+		\begin{block}{\textbf{Twierdzenie}}
+			Niech $X_{1}$ i $X_{2}$ będą ciągłymi zmiennymi losowymi o współzależnościach opisanych kopulą C.
+			Wówczas $\rho$ Spearmana zmiennych losowych $X_{1}$ i $X_{2}$ daje się przedstawić jako \[
+				\rho_{S}\left(X_{1},X_{2}\right)=12\int_{0}^{1}\int_{0}^{1}C\left(u,v\right)dudv-3
+			\]
+		\end{block}
+	\end{frame}
+	
+	\begin{frame}{Miary współzależności}
+		\framesubtitle{Współczynniki zależności asymptotycznych}
+		\begin{block}{\textbf{Współczynnik zależności w dolnym ogonie}}
+			Niech $X_{1}$ i $X_{2}$ będą ciągłymi zmiennymi losowymi o dystrybuantach
+			odpowiednio $F_{1}$ i $F_{2}.$ Wówczas współczynnikiem zależności w
+			dolnym ogonie nazwiemy granicę \[
+				\lambda_{L} = 
+					\lim_{\alpha\rightarrow0+} P\left(
+						X_{2}\leq F_{2}^{-1}\left(\alpha\right)\mid X_{1}\leq F_{1}^{-1}\left(\alpha\right)
+					\right)
+			\] o ile granica ta istnieje.
+		\end{block}
+	\end{frame}
+	
+	\begin{frame}{Miary współzależności}
+		\framesubtitle{Współczynniki zależności asymptotycznych}
+		\begin{block}{\textbf{Współczynnik zależności w górnym ogonie}}
+			Niech $X_{1}$ i $X_{2}$ będą ciągłymi zmiennymi losowymi o dystrybuantach
+			odpowiednio $F_{1}$ i $F_{2}.$ Wówczas współczynnikiem zależności w
+			górnym ogonie nazwiemy granicę \[
+				\lambda_{U} = 
+					\lim_{\alpha\rightarrow1-}P\left(
+						X_{2}>F_{2}^{-1}\left(\alpha\right)\mid X_{1}>F_{1}^{-1}\left(\alpha\right)
+					\right)
+			\] o ile granica ta istnieje.
+		\end{block}
+	\end{frame}
+	
+	\begin{frame}{Miary współzależności}
+		\framesubtitle{Współczynniki zależności asymptotycznych}
+		\begin{block}{\textbf{Twierdzenie}}
+			Niech $X_{1}$ i $X_{2}$ będą ciągłymi zmiennymi losowymi o współzależnościach opisanych kopulą C.
+			Wówczas współczynniki zależności asymptotycznych zmiennych losowych $X_{1}$ i $X_{2}$ dają się przedstawić jako \begin{eqnarray*}
+				\lambda_{L}\left(X_{1},X_{2}\right) & = & \lim_{\alpha\rightarrow0+}\frac{C\left(\alpha,\alpha\right)}{\alpha},\\
+				\lambda_{U}\left(X_{1},X_{2}\right) & = & 2-\lim_{\alpha\rightarrow1-}\frac{1-C\left(\alpha,\alpha\right)}{1-\alpha}.
+			\end{eqnarray*}
+		\end{block}
+	\end{frame}
+	
+	\begin{frame}{Estymacja}
+		\framesubtitle{Metoda IFM}
+		Zastosowanie twierdzenia Sklara pozwala przedstawić funkcję log-wiarogodności
+		wielowymiarowego szeregu czasowego jako: \[
+			\ell\left(\boldsymbol{\theta}, \boldsymbol{\alpha}_1, \boldsymbol{\alpha}_2\right) =
+				\sum_{i=1}^{2} \ell_{i}\left(\boldsymbol{\alpha}_i\right) +
+				\ell_C\left(\boldsymbol{\theta}, \boldsymbol{\alpha}_1, \boldsymbol{\alpha}_2\right),
+		\] gdzie
+		\begin{itemize}
+			\item $\ell_i$ --- funkcja log-wiarogodności i-tego jednowymiarowego szeregu czasowego brzegowego,
+			\item $\ell_C$ --- funkcja log-wiarogodności kopuli,
+			\item $\boldsymbol{\alpha}_i$ --- wektor parametrów i-tego jednowymiarowego szeregu czasowego brzegowego,
+			\item $\boldsymbol{\theta}$ --- wektor parametrów kopuli.
+		\end{itemize}
+	\end{frame}
+	
+	\begin{frame}{Estymacja}
+		\framesubtitle{Metoda IFM}
+		
+		Przedstawiona postać funkcji $\ell\left(\boldsymbol{\theta}, \boldsymbol{\alpha}_1, \boldsymbol{\alpha}_2\right)$
+		sugeruje możliwość rozdzielenia procesu estymacji parametrów modelu metodą największej wiarogodności na dwa etapy:
+		\begin{enumerate}
+			\item estymację parametrów jednowymiarowych szeregów czasowych $\boldsymbol{\alpha}_1$ i $\boldsymbol{\alpha}_2$
+				na podstawie odpowiednio $\ell_1\left(\boldsymbol{\alpha}_1\right)$ i $\ell_2\left(\boldsymbol{\alpha}_2\right),$
+			\item estymację parametrów kopuli $\boldsymbol{\theta}$ na podstawie
+				$\ell_C\left(\boldsymbol{\theta}, \hat{\boldsymbol{\alpha}}_1, \hat{\boldsymbol{\alpha}}_2\right),$ gdzie
+				$\hat{\boldsymbol{\alpha}}_1$ i $\hat{\boldsymbol{\alpha}}_2$ to estymatory parametrów odpowiednio
+				$\boldsymbol{\alpha}_1$ i $\boldsymbol{\alpha}_2$ uzyskane w pierwszym kroku estymacji.
+		\end{enumerate}
+		
+		Powyższa metoda estymacji nosi nozwę \textbf{metody IFM}.
+	\end{frame}
+	
+	\begin{frame}{Estymacja}
+		\framesubtitle{Metoda IFM}
+		\begin{alert}{\textbf{Uwaga}}
+			Zastało udowodnione, że metoda IFM posiada satysfakcjonujące właściwości statystyczne.
+		\end{alert}
+		\\~\\
+		\begin{alert}{\textbf{Uwaga.}}
+			Metoda IFM pozwala stanowczo uprościć proces estymacji parametrów złożonego modelu wielowymiarowego
+			poprzez rozłożenie go na dwa o wiele prostsze podproblemy, estymacji parametrów jednowymiarowych modeli
+			brzegowych oraz estymacji parametrów opisujących współzależności tych modeli.
+		\end{alert}
+	\end{frame}
+	
+	\begin{frame}{Przykład}
+		\framesubtitle{Kopule eliptyczne}
+		
+		\begin{block}{\textbf{Kopula normalna}}
+			Kopulą normalną o korelacji liniowej $\rho$ nazwiemy funkcję \[
+				C_{\rho}^{g}\left(u_{1},u_{2}\right) = 
+					\frac{1}{2\pi\sqrt{1-\rho^{2}}} \int_{-\infty}^{z_{u_{1}}} \int_{-\infty}^{z_{u_{2}}}
+						e^{\frac{2\rho s_{1}s_{2}-s_{1}^{2}-s_{2}^{2}}{2\left(1-\rho^{2}\right)}}
+					ds_{1}ds_{2},
+			\] gdzie
+			\begin{itemize}
+				\item $z_{u_i}$ --- kwantyl $u_i$ standardowego rozkładu normalnego.
+			\end{itemize}
+		\end{block}
+	\end{frame}
+	
+	\begin{frame}{Przykład}
+		\framesubtitle{Kopule eliptyczne}
+		
+		\begin{block}{\textbf{Kopula t-Studenta}}
+			Kopulą t-Studenta o $\nu$ stopniach swobody i korelacji liniowej $\rho$ nazwiemy funkcję \[
+				C_{\nu,\rho}^{t}\left(u_{1},u_{2}\right) =\]\[
+					\frac{1}{2\pi\sqrt{1-\rho^{2}}} \int_{-\infty}^{t_{\nu}^{-1}\left(u_{1}\right)}\int_{-\infty}^{t_{\nu}^{-1}\left(u_{2}\right)}
+						\left(1+\frac{s_{1}^{2}+s_{2}^{2}-2\rho s_{1}s_{2}}{\nu\left(1-\rho^{2}\right)}\right)^{-\frac{\nu+2}{2}}
+					ds_{1}ds_{2},
+			\] gdzie
+			\begin{itemize}
+				\item $t_{\nu}^{-1}\left(u_{i}\right)$ --- kwantyl $u_i$ rozkładu t-Studenta o $\nu$ st. swobody.
+				\item $\Gamma\left(\alpha\right)=\int_{0}^{\infty}x^{\alpha-1}e^{-x}dx,\mbox{ dla }\alpha>0.$
+			\end{itemize}
+		\end{block}
+	\end{frame}
+	
+	\begin{frame}{Przykład}
+		\framesubtitle{Model Copula-GARCH}
+		
+		\begin{block}{\textbf{Model Copula-GARCH}}
+			Niech $r_{1,t}, r_{2,t} \sim \mbox{GARCH}.$ Niech współzależności $r_{1,t}$ i $r_{2,t}$
+			opisuje kopula C. Modelem Copula-GARCH szeregów czasowych $r_{1,t}$ i $r_{2,t}$ nazwiemy
+			model opisany dystrybuantą wielowymiarową postaci \[
+				F\left(r_{1,t}, r_{2,t}\mid \boldsymbol{{\cal R}}_{t-1}\right) = C\left(
+					F_1\left(r_{1,t}\mid \boldsymbol{{\cal R}}_{t-1}\right),
+					F_2\left(r_{2,t}\mid \boldsymbol{{\cal R}}_{t-1}\right)
+					\mid
+					\boldsymbol{{\cal R}}_{t-1}
+				\right),
+			\] gdzie
+			\begin{itemize}
+				\item $F_i$ --- dystrybuanta $r_{i,t}$ dla $i=1,2,$
+				\item $F$ --- dystrybuanta łączna $r_{1,t}$ i $r_{2,t}.$
+			\end{itemize}
+		\end{block}
+		
+	\end{frame}
+
+	\section*{}
+
+	\begin{frame}
+		\center
+		\Huge \bfseries
+		Pytania?
+	\end{frame}
+
+	\begin{frame}
+		\center
+		\Huge \bfseries
+		Dziękuję za uwagę!
+	\end{frame}
+
+\end{document}
