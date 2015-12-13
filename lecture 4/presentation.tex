@@ -1,0 +1,294 @@
+\documentclass[a4paper, 11pt]{beamer}
+
+\usepackage{polski}
+\usepackage[utf8]{inputenc}
+\usepackage{units}
+
+\mode<presentation> {
+	\usetheme{Frankfurt}
+	\setbeamercovered{transparent}
+	\usecolortheme{default}
+}
+
+\title{Ekonometria Finansowa}
+\subtitle{Nieliniowe modele szeregów czasowych}
+\author{mgr Paweł Jamer\thanks{pawel.jamer@gmail.com}}
+
+\begin{document}
+
+	\begin{frame}
+		\titlepage
+	\end{frame}
+	
+	\section{Wprowadzenie}
+	
+	\begin{frame}{Problem}
+		\begin{block}{\textbf{Problem}}
+			Poszukiwany jest model opisujący szereg czasowy $r_t$ równaniem postaci \[
+				r_t = f\left(\epsilon_{t}, \epsilon_{t-1}, \epsilon_{t-2}, \ldots\right),
+			\] gdzie
+			\begin{itemize}
+				\item $f$ --- dowolna funkcja nieliniowa,
+				\item $\epsilon_{t}$ --- $\mbox{WN}\left(0,1\right)$
+			\end{itemize}
+		\end{block}
+	\end{frame}
+	
+	\begin{frame}{Uproszczenie problemu}
+		Uprośćmy przedstawiony problem rozwijając funkcję $f$ w szereg Taylora: \[
+			r_t = g\left(\epsilon_{t-1}, \epsilon_{t-2}, \ldots\right) + \epsilon_t h\left(\epsilon_{t-1}, \epsilon_{t-2}, \ldots\right).
+		\]
+		Wówczas funkcje $g$ oraz $h$ możemy interpretować następująco:
+		\begin{itemize}
+			\item $g\left(\epsilon_{t-1}, \epsilon_{t-2}, \ldots\right) = \mathbb{E}\left(r_t \mid \mathcal{R}_{t-1}\right),$
+			\item $h^2\left(\epsilon_{t-1}, \epsilon_{t-2}, \ldots\right) = \mbox{Var}\left(r_t \mid \mathcal{R}_{t-1}\right).$
+		\end{itemize}
+	\end{frame}
+	
+	\begin{frame}{Definicja}
+		\begin{block}{\textbf{Model nieliniowy}}
+			Model opisujący proces $r_t$ nazwiemy nieliniowym, jeżeli
+			warunkowa wartość oczekiwana $\mathbb{E}\left(r_t \mid \mathcal{R}_{t-1}\right)$ lub
+			warunkowa wariancja $\mbox{Var}\left(r_t \mid \mathcal{R}_{t-1}\right)$ jest
+			w nim opisana za pomocą funkcji nieliniowej.
+		\end{block}
+	\end{frame}
+	
+	\section{Przegląd modeli}
+	
+	\begin{frame}{Model NLAR}
+		\framesubtitle{Definicja}
+		\begin{block}{\textbf{Model nieliniowej autoregresji}}
+			Modelem nieliniowej autoregresji rzędu $p$ szeregu czasowego $r_t$ nazwiemy model
+			opisany równaniem \[
+				y_t = f\left(y_{t-1}, y_{t-2}, \ldots, y_{t-p}\right) + \epsilon_t.
+			\]
+		\end{block}
+		\begin{alert}{\textbf{Oznaczenie.}}
+			Model nieliniowej autoregresji rzędu $p$ oznacza się symbolem $\mbox{NLAR}\left(p\right).$
+		\end{alert}
+	\end{frame}
+	
+	\begin{frame}{Model NLAR}
+		\framesubtitle{Przykład}
+		\begin{block}{\textbf{Model wykładniczej autoregresji}}
+			Modelem wykładniczej autoregresji rzędu $p$ szeregu czasowego $r_t$ nazwiemy model
+			opisany równaniem \[
+				y_t = \sum_{j=1}^{p} \alpha_j y_{t-j} + \epsilon_t,
+			\] gdzie
+			\begin{itemize}
+				\item $\alpha_j = \theta_j + \pi_j e^{-\alpha y_{t-j}^2}.$
+			\end{itemize}
+		\end{block}
+		\begin{alert}{\textbf{Oznaczenie.}}
+			Model wykładniczej autoregresji rzędu $p$ oznacza się symbolem $\mbox{EAR}\left(p\right).$
+		\end{alert}
+	\end{frame}
+	
+	\begin{frame}{Model NLMA}
+		\framesubtitle{Definicja}
+		\begin{block}{\textbf{Model nieliniowej średniej ruchomej}}
+			Modelem nieliniowej średniej ruchomej rzędu $q$ szeregu czasowego $r_t$ nazwiemy model
+			opisany równaniem \[
+				y_t = f\left(\epsilon_{t-1}, \epsilon_{t-2}, \ldots, \epsilon_{t-q}\right) + \epsilon_t.
+			\]
+		\end{block}
+		\begin{alert}{\textbf{Oznaczenie.}}
+			Model nieliniowej średniej ruchomej rzędu $q$ oznacza się symbolem $\mbox{NLMA}\left(q\right).$
+		\end{alert}
+	\end{frame}
+	
+	\begin{frame}{Model NLMA}
+		\framesubtitle{Przykład}
+		\begin{block}{\textbf{Model Rocke'a}}
+			Modelem Rocke'a szeregu czasowego $r_t$ nazwiemy model opisany równaniem \[
+				y_t = \epsilon_t + \sum_{j=1}^{\infty} b_j \psi\left(\epsilon_{t-j}\right),
+			\] gdzie
+			\begin{itemize}
+				\item $\psi\left(x\right) \leq 0$ dla $x > 0,$
+				\item $\psi\left(-x\right)=\psi\left(x\right),$
+				\item $\psi\left(0\right) = 1.$
+			\end{itemize}
+		\end{block}
+	\end{frame}
+	
+	\begin{frame}{Model dwuliniowy}
+		\framesubtitle{Definicja}
+		\begin{block}{\textbf{Model dwuliniowy}}
+			Modelem dwuliniowym szeregu czasowego $r_t$ nazwiemy model
+			opisany równaniem \[
+				y_t = \mu + 
+					\sum_{i=1}^{p} \alpha_i y_{t-i} + 
+					\sum_{j=0}^{q} \theta_j \epsilon_{t-j} + 
+					\sum_{k=1}^{P} \sum_{l=1}^{Q} c_{k,l} y_{t-k} \epsilon_{t-l},
+			\] gdzie
+			\begin{itemize}
+				\item $\theta_0 = 1.$
+			\end{itemize}
+		\end{block}
+	\end{frame}
+	
+	\begin{frame}{Model dwuliniowy}
+		\framesubtitle{Właściwości}
+		\begin{alert}{\textbf{Uwaga.}}
+			Model dwuliniowy uwzględnia skupianie się danyh.
+		\end{alert}
+		\\~\\
+		\begin{alert}{\textbf{Uwaga.}}
+			$r_t \sim \mbox{ARCH} \Rightarrow r_t^2$ - proces dwuliniowy.
+		\end{alert}
+		\\~\\
+		\textbf{Wśród modeli dwuliniowych wyróżnia się:}
+		\begin{itemize}
+			\item modele dwuliniowe naddiagonalne ($c_{k,l} = 0$ dla $k > l$).
+			\item modele dwuliniowe poddiagonalne ($c_{k,l} = 0$ dla $k < l$).
+			\item modele dwuliniowe diagonalne ($c_{k,l} = 0$ dla $k \neq l$).
+		\end{itemize}
+	\end{frame}
+	
+	\begin{frame}{Model TAR}
+		\begin{block}{\textbf{Model progowy autoregresyjny}}
+			Modelem progowym autoregresyjnym (TAR) szeregu czasowego $r_t$ nazwiemy model opisany równaniem \[
+				r_t + \theta_0 + \sum_{i=1}^p \theta_i r_{t-i} + 
+					I\left(z_{t-d} \leq r\right) \left(\psi_0 + \sum_{j=1}^{q} \psi_j r_{t-j}\right) = \epsilon_t.
+			\]
+		\end{block}
+		
+		\begin{alert}{\textbf{Model SETAR.}}
+			Model TAR w którym $z_{t-d} = r_{t-d}$ nazwiemy modelem SETAR.
+		\end{alert}
+	\end{frame}
+	
+	\begin{frame}{Model STR}
+		\framesubtitle{Definicja}
+		\begin{block}{\textbf{Model wygładzonego przejścia}}
+			Modelem wygładzonego przejścia szeregu czasowego $r_t$ nazwiemy model opisany równaniem \[
+				r_t = 
+					\boldsymbol{x}_{t}^{\prime} \boldsymbol{\pi}_{1} + 
+					\boldsymbol{x}_{t}^{\prime} \boldsymbol{\pi}_{2} F\left(z_t\right) + 
+					\boldsymbol{\epsilon}_{t},
+			\] gdzie
+			\begin{itemize}
+				\item $\boldsymbol{x}_{t} = \left[\begin{matrix}
+						1 & y_{t-1} & \cdots & y_{t-p} & x_{1,t} & \cdots & x_{q,t}
+					\end{matrix}\right]$ --- wektor zmiennych,
+				\item $\boldsymbol{\pi}_{1}, \boldsymbol{\pi}_{2}$ --- wektory parametrów,
+				\item $\epsilon_t$ --- WN,
+				\item $F\left(z_t\right)$ --- funkcja transformacji, parzysta lub nieparzysta funkcja ciągła.
+			\end{itemize}
+		\end{block}
+	\end{frame}
+	
+	\begin{frame}{Model STR}
+		\framesubtitle{Postać funkcji transformacji}
+		\textbf{Funkcja logistyczna:} \[
+			F\left(z_t\right) = F\left(t\right) = \frac{1}{
+				1 + e^{-\gamma\left(t^k + \sum_{i=1}^{k} \alpha_i t^{k-i}\right)}
+			}.
+		\]
+		\textbf{Funkcja wykładnicza:} \[
+			F\left(z_t\right) = F\left(t\right) = 
+				1 + e^{-\gamma\left(t - \alpha\right)^2}.
+		\]
+	\end{frame}
+	
+	\begin{frame}{Model przełącznikowy}
+		\begin{block}{\textbf{Model przełącznikowy}}
+			Modelem przełącznikowym szeregu czasowego $r_t$ nazwiemy model opisany równaniem \[
+				r_t = \alpha_{z_t} + \sum_{i=1}^{p} \beta_{z_t,i} r_{t-i} + \epsilon_t,
+			\] gdzie
+			\begin{itemize}
+				\item $z_{t}$ --- łańcuch Markowa o zbiorze stanów \[\mathcal{S} = \left\{1, 2, \ldots, k\right\}, k \geq 2.\]
+			\end{itemize}
+		\end{block}
+	\end{frame}
+	
+	\section{Wybór modelu}
+	
+	\begin{frame}{Wybór funkcji nieliniowej}
+		\framesubtitle{Podstawy teoretyczne}
+		\textbf{Odpowiednio dobrana funkcja nieliniowa powinna:}
+		\begin{itemize}
+			\item zachowywać zgodność ze znanymi zależnościami ekonomicznymi,
+			\item zachowywać zgodność ze znanymi faktami empirycznymi,
+			\item posiadać dziedzinę zmienności zgodną z faktyczną zmiennością modelowanej wielkości,
+			\item charakteryzować się elastycznością umożliwiającą aproksymację form zbliżonych do analizowanej formy.
+			\item umożliwiać łatwe wyznaczenie jej parametrów.
+		\end{itemize}
+	\end{frame}
+	
+	\begin{frame}{Wybór funkcji nieliniowej}
+		\framesubtitle{Funkcja korelacji}
+		\textbf{Współczynnik maksymalnej korelacji:} \[
+			m_{\rho} = \max_{f,g} \mbox{Cor}\left(g\left(y\right), f\left(x\right)\right).
+		\]
+		\textbf{Maksymalna średnia korelacja:} \[
+			m_{m} = \max_{f} \mbox{Cor}\left(y, f\left(x\right)\right).
+		\]
+		\textbf{Maksymalny współczynnik regresji} \[
+			m_{r} = \max_{f} R^2,
+		\] gdzie
+		\begin{itemize}
+			\item $R^2$ --- współczynnik determinacji w regresji $y=f\left(x\right)+\epsilon_t.$
+		\end{itemize}
+	\end{frame}
+	
+	\begin{frame}{Wybór liczby opóźnień}
+		\begin{alert}{\textbf{Uwaga.}}
+			Wyboru liczby opóźnień w modelach NLAR, NLMA, dwuliniowych oraz progowych można dokonać
+			wykorzystując kryteria informacyjne. Najczęściej stosowanymi kryteriami są kryteria AIC oraz BIC.
+		\end{alert}
+	\end{frame}
+	
+	\section{Testowanie nieliniowości}
+	
+	\begin{frame}{Test RESET}
+		\framesubtitle{Algorytm}
+		\begin{enumerate}
+			\item Stosujemy MNK w celu wyznaczenia parametrów modelu \[
+					r_t = \boldsymbol{\beta}^{\prime} \boldsymbol{z}_t + u_t,
+				\] gdzie $\boldsymbol{z}_{t} = \left[\begin{matrix}1 & y_{t-1} & \cdots & y_{t-p} & x_{1} & \cdots & x_{k}\end{matrix}\right].$
+			\item Obliczamy \[
+				\mbox{SSR}_0 = \sum_{t=1}^{T} \hat{u}_t^2.
+			\]
+			\item Stosujemy MNK w celu wyznaczenia parametrów modelu \[
+					\hat{u}_t = \boldsymbol{\delta}^{\prime} \boldsymbol{z}_t + \sum_{j=2}^{h} \psi_j \hat{y}_t^j + v_t.
+				\]
+			\item Obliczamy \[
+				\mbox{SSR} = \sum_{t=1}^{T} \hat{v}_t^2.
+			\]
+		\end{enumerate}
+	\end{frame}
+	
+	\begin{frame}{Test RESET}
+		\framesubtitle{Metoda testowania}
+		Testujemy hipotezę \[
+			\begin{cases}
+				H_{0}: & \left(\forall j\right)\psi_{j}=0,\\
+				H_{1}: & \left(\exists j\right)\psi_{j}\neq0.
+			\end{cases}
+		\]
+		Statystyka testowa jest postaci: \[
+			F=\frac{
+				\nicefrac{\left(\mbox{SSR}_0 - \mbox{SSR}\right)}{\left(h-1\right)}
+			}{
+				\nicefrac{\left(\mbox{SSR}\right)}{\left(T-m-h\right)}
+			} \sim \mathbb{F}^{\left[h-1, T-m-h\right]}.
+		\]
+	\end{frame}
+	
+	\section*{}
+	
+	\begin{frame}
+		\center
+		\Huge \bfseries
+		Pytania?
+	\end{frame}
+
+	\begin{frame}
+		\center
+		\Huge \bfseries
+		Dziękuję za uwagę!
+	\end{frame}
+
+\end{document}
