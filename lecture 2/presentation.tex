@@ -2,6 +2,7 @@
 
 \usepackage{polski}
 \usepackage[utf8]{inputenc}
+\usepackage[utf8]{inputenc}
 
 \mode<presentation> {
 	\usetheme{Frankfurt}
@@ -162,7 +163,7 @@
 		\framesubtitle{Estymowanie funkcji autokorelacji (ACF)}
 		\begin{block}{\textbf{Estymator funkcji autokorelacji}}
 			Jako estymator funkcji autokorelacji procesu $X_t$ możemy przyjąć \[
-				\hat{\rho}_h = \frac{\sum_{t=h}^{T}\left(X_t - \overline{X}\right)\left(X_{t-h} - \overline{X}\right)}{\sum_{t=1}^{T}\left(X_t - \overline{X}\right)^2}
+				\hat{\rho}_h = \frac{\sum_{t=1}^{T-h}\left(X_t - \overline{X}\right)\left(X_{t+h} - \overline{X}\right)}{\sum_{t=1}^{T}\left(X_t - \overline{X}\right)^2}
 			\]
 		\end{block}
 	\end{frame}
