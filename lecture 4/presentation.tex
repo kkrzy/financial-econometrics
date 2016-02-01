@@ -246,7 +246,7 @@
 		\framesubtitle{Algorytm}
 		\begin{enumerate}
 			\item Stosujemy MNK w celu wyznaczenia parametrów modelu \[
-					r_t = \boldsymbol{\beta}^{\prime} \boldsymbol{z}_t + u_t,
+					y_t = \boldsymbol{\beta}^{\prime} \boldsymbol{z}_t + u_t,
 				\] gdzie $\boldsymbol{z}_{t} = \left[\begin{matrix}1 & y_{t-1} & \cdots & y_{t-p} & x_{1} & \cdots & x_{k}\end{matrix}\right].$
 			\item Obliczamy \[
 				\mbox{SSR}_0 = \sum_{t=1}^{T} \hat{u}_t^2.
@@ -273,8 +273,8 @@
 				\nicefrac{\left(\mbox{SSR}_0 - \mbox{SSR}\right)}{\left(h-1\right)}
 			}{
 				\nicefrac{\left(\mbox{SSR}\right)}{\left(T-m-h\right)}
-			} \sim \mathbb{F}^{\left[h-1, T-m-h\right]}.
-		\]
+			} \sim \mathbb{F}^{\left[h-1, T-m-h\right]},
+		\] gdzie $m=p+k.$
 	\end{frame}
 	
 	\section*{}
