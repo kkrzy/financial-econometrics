@@ -1,0 +1,237 @@
+\documentclass[a4paper, 11pt]{beamer}
+
+\usepackage{polski}
+\usepackage[utf8]{inputenc}
+\usepackage{units}
+
+\mode<presentation> {
+	\usetheme{Frankfurt}
+	\setbeamercovered{transparent}
+	\usecolortheme{default}
+}
+
+\title{Ekonometria Finansowa}
+\subtitle{Teoria efektywności informacyjnej rynku}
+\author{mgr Paweł Jamer\thanks{pawel.jamer@gmail.com}}
+
+\begin{document}
+
+	\begin{frame}
+		\titlepage
+	\end{frame}
+	
+	\section{Racjonalność}
+	
+	\begin{frame}{Racjonalność zachowań}
+		\textbf{Racjonalność zachowań:}
+		\begin{itemize}
+			\item uczestnicy rynku działają racjonalnie znając cały zbiór informacji,
+			\item uczestnicy rynku dysponują takim samym zbiorem narzędzi analizy rynku,
+			\item uczestnicy rynku dążą do maksymalizacji zysku przy ustalonym z góry poziomie ryzyka
+				lub minimalizacji ryzyka przy ustalonym z góry poziomie zysku.
+		\end{itemize}
+	\end{frame}
+	
+	\begin{frame}{Formy racjonalności zachowań}
+		\textbf{Formy racjonalności zachowań:}
+		\begin{itemize}
+			\item \textbf{racjonalność instrumentalna} --- uczestnik rynku o nieograniczonych zdolnościach
+				dąży do optymalizaji swojej funkcji celu w warunkach wolnego od opłat dostępu do pełnej i pewnej
+				informacji.
+			\item \textbf{racjonalność kognitywna} --- uczestnik rynku konfrontuje posiadane informacje z
+				realiami swojego otoczenia.
+			\item \textbf{racjonalność ograniczona} --- uczestnik rynku dysponuje ograniczonymi zdolnościami
+				oraz ograniczonym dostępem do informacji. Zadowala się on osiągnięciem wyników, uznawanych przez
+				siebie za dostateczne.
+		\end{itemize}
+	\end{frame}
+	
+	\begin{frame}{Racjonalność przewidywań}
+		\begin{block}{\textbf{Racjonalność przewidywań}}
+			Uczestnik rynku antycypuje przyszłość wykorzystując cały zbiór dostępnych mu informacji w najlepszy
+			ze znanych mu i możliwych do zastosowania sposobów.
+		\end{block}
+		\textbf{Warunki konieczne zachodzenia racjonalności przewidywań:}
+		\begin{itemize}
+			\item uczestnik rynku optymalnie specyfikuje model zależności zmiennej predykowanej od zbioru zmiennych
+				predykcyjnych,
+			\item uczestnik rynku posiada wystarczający zbiór informacji o pszeszłych wartościach wszystkich
+				występujących w modelu zmiennych,
+			\item uczestnik rynku dokonuje predykcji z wykorzystaniem metod estymacji prowadzących do uzyskania
+				estymatorów nieobciążonych.
+		\end{itemize}
+	\end{frame}
+	
+	\begin{frame}{Racjonalność przewidywań}
+		\begin{block}{\textbf{Racjonalne przewidywanie}}
+			Racjonalna predykcja wartości jaką $r_t$ przyjmie w chwili $t+1$ dokonywana w chwili $t$ przy założeniu
+			posiadania wszystkich niezbędnych do dokonania predykcji informacji $I_t,$ to \[
+				\mathbb{E}\left(r_{t+1} \mid I_t\right).
+			\]
+		\end{block}
+		\begin{alert}{\textbf{Uwaga.}}
+			W efekcie niedoskonałości rynków finansowych wartość $r_t$ w chwili $t+1$ nie będzie z reguły zgodna
+			z prognozą. Nie powinna ona być jednak obciążona błędem systematycznym, tzn.: \[
+				r_{t+1} = \mathbb{E}\left(r_{t+1} \mid I_t\right) + \epsilon_{t+1},
+			\] gdzie $\epsilon_{t+1}$ to biały szum.
+		\end{alert}
+	\end{frame}
+	
+	\section{Rynek efektywny}
+	
+	\begin{frame}{Formy efektywności rynków finansowych}
+		\textbf{Formy efektywności rynków finansowych:}
+		\begin{itemize}
+			\item \textbf{efektywność alokacji} --- przepływ kapitału pozwalający realizować
+				przedsięwzięcia najbardziej efektywne i zapewniające stabilny oraz odpowienio szybki
+				rozwój gospodarki.
+			\item \textbf{efektywność operacyjna} --- kojarzenie przez pośredników rynku finansowego
+				osób posiadających kapitał oraz potrzebujących kapitału, w sposób satysfakcjonujący dla
+				obu stron oraz w zamian za możliwie niskie opłaty.
+			\item \textbf{efektywność informacyjna} --- odzwierciedlenie w cenie instrumentu finansowego
+				wszystkich związanych z nim informacji przeszłych i obecnych, jak również rozsądnych
+				przewidywań dotyczących przyszłości.
+		\end{itemize}
+		\begin{alert}{\textbf{Uwaga.}}
+			Wymienione wyżej formy efektywności są ze sobą silnie powiązane i uzupełniają się wzajemnie.
+		\end{alert}
+	\end{frame}
+	
+	\begin{frame}{Hipoteza rynku efektywnego}
+		\framesubtitle{Wprowadzenie}
+		\begin{block}{\textbf{Hipoteza rynku efektywnego (EMH)}}
+			Łączne zachodzenie efektywności alokacji, efektywności operacyjnej oraz efektywności informacyjnej.
+		\end{block}
+		\textbf{Warunki wystarczające efektywności rynku:}
+		\begin{itemize}
+			\item racjonalność zachowań uczestników rynku,
+			\item powszechny dostęp do natychmiastowej, pewnej i bezpłatnej informacji,
+			\item brak opłat oraz podatków na giełdzie.
+		\end{itemize}
+		\begin{alert}{\textbf{Wniosek.}}
+			Ceny instrumentów finansowych stanowią wyraz całości przeszłej, teraźniejszej oraz racjonalnie
+			antycypowanej przyszłej informacji na ich temat. Nie jest zatem możliwa prognoza cen instrumentów
+			na okres następny.
+		\end{alert}
+	\end{frame}
+	
+	\begin{frame}{Hipoteza rynku efektywnego}
+		\framesubtitle{Realia rynku}
+		\textbf{Inwestorzy:}
+		\begin{itemize}
+			\item nie dysponują takim samym zbiorem informacji,
+			\item mają różne preferencje i cele,
+			\item cechują się różnym poziomem wiedzy i doświadczenia,
+			\item dysponują kapitałem różnej wielkości,
+			\item stosują różne strategie inwestycyjne,
+			\item ...
+		\end{itemize}
+	\end{frame}
+	
+	\begin{frame}{Hipoteza rynku efektywnego informacyjnie}
+		\framesubtitle{Twierdzenie}
+		\begin{block}{\textbf{Twierdzenie o efektywności rynku}}
+			Efektywność informacyjna rynku finansowego przejawia się w trzech formach.
+			\begin{itemize}
+				\item \textbf{forma słaba} --- w cenie instrumentu finansowego znajdują
+					odzwierciedlenie wszystkich informacje historyczne z instrumentem powiązane.
+				\item \textbf{forma półsilna} --- w cenie instrumentu finansowego znajdują
+					odzwierciedlenie informacje uwzględnione w słabej formie efektywności oraz
+					ogólnie dostępne informacje bieżące
+				\item \textbf{forma silna} --- w cenie instrumentu finansowego znajdują
+					odzwierciedlenie informacje uwzględnione w półsilnej formie efektywności oraz
+					bieżące informacje poufne.
+			\end{itemize}
+		\end{block}
+	\end{frame}
+	
+	\begin{frame}{Testowanie efektywności rynku}
+		\textbf{Hipotezę o słabej efektywności rynku weryfikować można:}
+		\begin{itemize}
+			\item wykorzystując narzędzia analizy technicznej
+			\begin{itemize}
+				\item \textit{rynek dyskontuje wszystko},
+			\end{itemize}
+			\item stosując testy losowości
+			\begin{itemize}
+				\item testy autokorelacji,
+				\item test ilorazów wariancji,
+				\item test serii,
+				\item ...
+			\end{itemize}
+		\end{itemize}
+	\end{frame}
+	
+	\begin{frame}{Testowanie autokorelacji}
+		\begin{columns}
+			\begin{column}{0.5\textwidth}
+				\begin{center}
+					\textbf{Test Pearsona}
+				\end{center}
+				Testujemy hipotezę \[
+					\begin{cases}
+						H_{0}: & \rho_{i}=0,\\
+						H_{1}: & \rho_{i}\neq0
+					\end{cases}
+				\]
+				wykorzystując w tym celu test \[
+					t=\frac{\hat{\rho}_i}{\sqrt{\frac{1-\hat{\rho}^2_i}{T-i-2}}} \sim t_{T-i-2}.
+				\]
+			\end{column}
+			\begin{column}{0.5\textwidth}
+				\begin{center}
+					\textbf{Test Ljunga-Boxa}
+				\end{center}
+				Testujemy hipotezę \[
+					\begin{cases}
+						H_{0}: & \sum_{i=1}^{h} \rho_{i}^{2}=0,\\
+						H_{1}: & \sum_{i=1}^{h} \rho_{i}^{2}>0
+					\end{cases}
+				\]
+				wykorzystując w tym celu test \[
+					Q = T \left(T + 2\right) \sum_{i=1}^h \frac{\hat{\rho}^2_i}{T-i} \sim \chi^2_{h}.
+				\]
+			\end{column}
+		\end{columns}
+	\end{frame}
+	
+	\begin{frame}{Test ilorazów wariancji}
+		Testujemy hipotezę \[
+				H_{0}: \mbox{błądzenie przypadkowe (typu RW1)},
+		\] wykorzystując w tym celu test \[
+			SVR_h = \sqrt{\frac{3hT}{2\left(2h-1\right)\left(h-1\right)}} \left(VR_h - 1\right) \sim \cal{N}\left(0,1\right),
+		\] gdzie
+		\begin{itemize}
+			\item $VR_h = \frac{S^2\left(r_t+r_{t-1}+\ldots+r_{t-k+1}\right)}{hS^2\left(r_t\right)}.$
+		\end{itemize}
+	\end{frame}
+	
+	\begin{frame}{Test serii}
+		Testujemy hipotezę \[
+				H_{0}: \mbox{dane mają charakter losowy}
+		\] wykorzystując w tym celu test \[
+			U=\frac{K-\mathbb{E}\left(K\right)}{\sqrt{\mbox{Var}\left(K\right)}}
+		\] gdzie
+		\begin{itemize}
+			\item $\mathbb{E}\left(K\right) = \frac{2 n_1 n_2 + n}{n},$
+			\item $\mbox{Var}\left(K\right) = \frac{2 n_1 n_2 \left(2 n_1 n_2 - n\right)}{\left(n - 1\right) n^2},$
+			\item $K$ --- liczba wszystkich serii obserwacji nieujemnych oraz obserwacji ujemnych,
+			\item $n, n_1, n_2$ --- liczba odpowiednio wszystkich obserwacji, nieujemnych obserwacji, ujemnych obserwacji w szeregu.
+		\end{itemize}
+	\end{frame}
+	
+	\section*{}
+	
+	\begin{frame}
+		\center
+		\Huge \bfseries
+		Pytania?
+	\end{frame}
+
+	\begin{frame}
+		\center
+		\Huge \bfseries
+		Dziękuję za uwagę!
+	\end{frame}
+
+\end{document}
