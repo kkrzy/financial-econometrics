@@ -199,7 +199,7 @@
 		Testujemy hipotezę \[
 				H_{0}: \mbox{błądzenie przypadkowe (typu RW1)},
 		\] wykorzystując w tym celu test \[
-			SVR_h = \sqrt{\frac{3hT}{2\left(2h-1\right)\left(h-1\right)}} \left(VR_h - 1\right) \sim \cal{N}\left(0,1\right),
+			SVR_h = \sqrt{\frac{3hT}{2\left(2h-1\right)\left(h-1\right)}} \left(VR_h - 1\right) \sim \mathcal{N}\left(0,1\right),
 		\] gdzie
 		\begin{itemize}
 			\item $VR_h = \frac{S^2\left(r_t+r_{t-1}+\ldots+r_{t-k+1}\right)}{hS^2\left(r_t\right)}.$
@@ -210,7 +210,7 @@
 		Testujemy hipotezę \[
 				H_{0}: \mbox{dane mają charakter losowy}
 		\] wykorzystując w tym celu test \[
-			U=\frac{K-\mathbb{E}\left(K\right)}{\sqrt{\mbox{Var}\left(K\right)}}
+			U=\frac{K-\mathbb{E}\left(K\right)}{\sqrt{\mbox{Var}\left(K\right)}} \sim \mathcal{N}\left(0,1\right),
 		\] gdzie
 		\begin{itemize}
 			\item $\mathbb{E}\left(K\right) = \frac{2 n_1 n_2 + n}{n},$
