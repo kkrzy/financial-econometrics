@@ -25,7 +25,7 @@
 		\titlepage
 	\end{frame}
 	
-	\section{Biały szum}
+	\section{Błądzenie losowe}
 	
 	\begin{frame}{Biały szum}
 		\begin{block}{\textbf{Biały szum}}
@@ -39,11 +39,9 @@
 		\end{alert}
 	\end{frame}
 	
-	\section{Błądzenie losowe}
-	
 	\begin{frame}{Błądzenie losowe}
-		\begin{block}{\textbf{Błądzenie losowe (bez dryftu)}}
-			Szereg czasowy $p_t$ nazwiemy błądzeniem losowym bez dryftu, jeżeli spełnia on równanie \[
+		\begin{block}{\textbf{Błądzenie losowe (bez dryfu)}}
+			Szereg czasowy $p_t$ nazwiemy błądzeniem losowym bez dryfu, jeżeli spełnia on równanie \[
 				p_t = p_{t-1} + \epsilon_t,
 			\] gdzie
 			\begin{itemize}
@@ -53,11 +51,12 @@
 		\begin{alert}{\textbf{Uwaga.}}
 			Uzupełniając powyższy wzór o niezerową stałą $\alpha$ \[
 				p_t = \alpha + p_{t-1} + \epsilon_t
-			\] uzyskujemy proces błądzenia losowego z dryftem.
+			\] uzyskujemy proces błądzenia losowego z dryfem.
 		\end{alert}
 	\end{frame}
 	
-	\begin{frame}{Ceny instrumentów finansowych}
+	\begin{frame}{Błądzenie losowe}
+		\framesubtitle{...jako generator cen instrumentu finansowego}
 		\begin{block}{\textbf{Hipoteza}}
 			Cena instrumentu finansowego $p_t$ jest błądzeniem losowym.
 		\end{block}
@@ -66,24 +65,20 @@
 		\]
 		Prawdziwość powyższej hipotezy jest równoznaczna z tym, że:
 		\begin{itemize}
-			\item $\hat{\rho}$ statystycznie nie różni się od jedności,
+			\item $\rho$ statystycznie nie różni się od jedności,
 			\item $\epsilon_t$ jest białym szumem.
 		\end{itemize}
-		Ponadto, jeżeli na zadanym poziomie istotności zachodzi:
+		Ponadto, jeżeli zachodzi:
 		\begin{itemize}
-			\item $\hat{\alpha} = 0,$ to $p_t$ jest błądzeniem losowym bez dryfu,
-			\item $\hat{\alpha} \neq 0,$ to $p_t$ jest błądzeniem losowym z dryfem.
+			\item $\alpha = 0,$ to $p_t$ jest błądzeniem losowym bez dryfu,
+			\item $\alpha \neq 0,$ to $p_t$ jest błądzeniem losowym z dryfem.
 		\end{itemize}
-		\begin{alert}{\textbf{Uwaga.}}
-			Z powodu możliwej niestacjonarności $p_t$ estymacja powyższego równania
-			jest problematyczna.
-		\end{alert}
 	\end{frame}
 	
 	\begin{frame}{Właściwości błądzenia losowego}
 		\begin{columns}[onlytextwidth]
 			\begin{column}{0.5\textwidth}
-				\textbf{Błądzenie losowe bez dryftu} \[
+				\textbf{Błądzenie losowe bez dryfu} \[
 					p_t = p_{t-1} + \epsilon_t,
 				\] \[
 					p_t = p_0 + \sum_{h=0}^{t} \epsilon_{t-h},
@@ -94,7 +89,7 @@
 				\]
 			\end{column}
 			\begin{column}{0.5\textwidth}
-				\textbf{Błądzenie losowe z dryftem} \[
+				\textbf{Błądzenie losowe z dryfem} \[
 					p_t = \alpha + p_{t-1} + \epsilon_t,
 				\] \[
 					p_t = p_0 + t \alpha + \sum_{h=0}^{t} \epsilon_{t-h},
@@ -128,27 +123,32 @@
 	\section{Racjonalność}
 	
 	\begin{frame}{Racjonalność zachowań}
-		\textbf{Racjonalność zachowań:}
 		\begin{itemize}
-			\item uczestnicy rynku działają racjonalnie znając cały zbiór informacji,
-			\item uczestnicy rynku dysponują takim samym zbiorem narzędzi analizy rynku,
-			\item uczestnicy rynku dążą do maksymalizacji zysku przy ustalonym z góry poziomie ryzyka
-				lub minimalizacji ryzyka przy ustalonym z góry poziomie zysku.
+			\item Uczestnicy rynku działają racjonalnie...
+			\begin{itemize}
+				\item ...znając cały zbiór informacji...
+				\item ...dysponując takim samym zbiorem narzędzi analiy rynku.x
+			\end{itemize}
+			\item Uczestnicy rynku dążą do...
+			\begin{itemize}
+				\item ...maksymalizacji zysku przy ustalonym z góry poziomie ryzyka.
+				\item ...minimalizacji ryzyka przy ustalonym z góry poziomie zysku.
+			\end{itemize}
 		\end{itemize}
 	\end{frame}
 	
 	\begin{frame}{Formy racjonalności zachowań}
-		\textbf{Formy racjonalności zachowań:}
 		\begin{itemize}
-			\item \textbf{racjonalność instrumentalna} --- uczestnik rynku o nieograniczonych zdolnościach
-				dąży do optymalizaji swojej funkcji celu w warunkach wolnego od opłat dostępu do pełnej i pewnej
-				informacji.
-			\item \textbf{racjonalność kognitywna} --- uczestnik rynku konfrontuje posiadane informacje z
-				realiami swojego otoczenia.
-			\item \textbf{racjonalność ograniczona} --- uczestnik rynku dysponuje ograniczonymi zdolnościami
-				oraz ograniczonym dostępem do informacji. Zadowala się on osiągnięciem wyników, uznawanych przez
-				siebie za dostateczne.
-		\end{itemize}
+			\item \textbf{Racjonalność instrumentalna} --- uczestnik rynku posiadający
+				nieograniczone zdolności i nieograniczony dostęp do informacji dąży
+				do optymalizaji swojej funkcji celu.
+			\item \textbf{Racjonalność kognitywna} --- uczestnik rynku posiadający zdoność
+				konfrontowania posiadanych informacji z otoczeniem dąży do optymalizacji swojej
+				funkcji celu.
+			\item \textbf{Racjonalność ograniczona} --- uczestnik rynku posiadający
+				ograniczone zdolności i ograniczony dostęp do informacji dąży do osiągnięcia
+				zadowalającego dla siebie poziomu swojej funkcji celu.
+			\end{itemize}
 	\end{frame}
 	
 	\begin{frame}{Racjonalność przewidywań}
@@ -158,11 +158,11 @@
 		\end{block}
 		\textbf{Warunki konieczne zachodzenia racjonalności przewidywań:}
 		\begin{itemize}
-			\item uczestnik rynku optymalnie specyfikuje model zależności zmiennej predykowanej od zbioru zmiennych
-				predykcyjnych,
-			\item uczestnik rynku posiada wystarczający zbiór informacji o pszeszłych wartościach wszystkich
+			\item uczestnik rynku optymalnie specyfikuje model zależności zmiennej objaśnianej
+				od zbioru zmiennych objaśniających,
+			\item uczestnik rynku posiada wystarczająco duży zbiór przeszłych wartości wszystkich
 				występujących w modelu zmiennych,
-			\item uczestnik rynku dokonuje predykcji z wykorzystaniem metod estymacji prowadzących do uzyskania
+			\item uczestnik rynku wykorzystuje metody estymacji prowadzące do uzyskania
 				estymatorów nieobciążonych.
 		\end{itemize}
 	\end{frame}
@@ -185,15 +185,14 @@
 	\section{Rynek efektywny}
 	
 	\begin{frame}{Formy efektywności rynków finansowych}
-		\textbf{Formy efektywności rynków finansowych:}
+		\textbf{Formy efektywności rynków finansowych.}
 		\begin{itemize}
-			\item \textbf{efektywność alokacji} --- przepływ kapitału pozwalający realizować
-				przedsięwzięcia najbardziej efektywne i zapewniające stabilny oraz odpowienio szybki
-				rozwój gospodarki.
-			\item \textbf{efektywność operacyjna} --- kojarzenie przez pośredników rynku finansowego
-				osób posiadających kapitał oraz potrzebujących kapitału, w sposób satysfakcjonujący dla
-				obu stron oraz w zamian za możliwie niskie opłaty.
-			\item \textbf{efektywność informacyjna} --- odzwierciedlenie w cenie instrumentu finansowego
+			\item \textbf{Efektywność alokacji} --- przepływ kapitału pozwalający realizować najlepsze
+				z punktu widzenia danej branży oraz całej gospodarki przedsięwzięcia.
+			\item \textbf{Efektywność operacyjna} --- kojarzenie przez pośredników rynku finansowego
+				osób posiadających kapitał oraz potrzebujących kapitału przy zachowaniu możliwie
+				optymalnych warunków.
+			\item \textbf{Efektywność informacyjna} --- odzwierciedlenie w cenie instrumentu finansowego
 				wszystkich związanych z nim informacji przeszłych i obecnych, jak również rozsądnych
 				przewidywań dotyczących przyszłości.
 		\end{itemize}
@@ -213,13 +212,25 @@
 			\item powszechny dostęp do natychmiastowej, pewnej i bezpłatnej informacji,
 			\item brak opłat oraz podatków na giełdzie.
 		\end{itemize}
-		\begin{alert}{\textbf{Wniosek.}}
-			Ceny instrumentów finansowych stanowią wyraz całości przeszłej, teraźniejszej oraz racjonalnie
-			antycypowanej przyszłej informacji na ich temat. Nie jest zatem możliwa prognoza cen instrumentów
-			na okres następny.
-		\end{alert}
 	\end{frame}
 	
+	\begin{frame}{Hipoteza rynku efektywnego}
+		\framesubtitle{Wnioski}
+		\begin{block}{\textbf{Wniosek 1} (nieprognozowalność)}
+			Zgodnie z założeniami hipotezy rynku efektywnego nie jest możliwa prognoza ceny instrumentu
+			finansowego na okres przyszły.
+		\end{block}
+		\begin{block}{\textbf{Wniosek 2} (losowość)}
+			Zmiana ceny instrumentu finansowego w okresie następnym może nastąpić tylko na skutek
+			napływu nowej informacji lub zaistnienia nieprognozowalnego zdarzenia.
+		\end{block}
+		\begin{block}{\textbf{Wniosek 3} (stabilność)}
+			Jeżeli zbiór informacji na temat instrumentu finansowego w dwóch następujących po sobie
+			okresach czasu $I_t$ oraz $I_{t+1}$ nie uległ zmianie, to również cena tego instrumentu
+			finansowego na rynku efektymwnym nie ulegnie zmianie, tzn. $P_t = P_{t+1}.$
+		\end{block}
+	\end{frame}
+
 	\begin{frame}{Hipoteza rynku efektywnego}
 		\framesubtitle{Realia rynku}
 		\textbf{Inwestorzy:}
@@ -231,19 +242,23 @@
 			\item stosują różne strategie inwestycyjne,
 			\item ...
 		\end{itemize}
+		\begin{alert}{\textbf{Wniosek.}}
+			Ceny instrumentów finansowych podlegają pewnym wahaniom spowodowanym
+			podejmowaniem przez inwestorów zróżnicowanych decyzji inwestycyjnych.
+		\end{alert}
 	\end{frame}
 	
 	\begin{frame}{Hipoteza rynku efektywnego informacyjnie}
 		\framesubtitle{Twierdzenie}
-		\begin{block}{\textbf{Twierdzenie o efektywności rynku}}
+		\begin{block}{\textbf{Twierdzenie o efektywności rynku} (Fama)}
 			Efektywność informacyjna rynku finansowego przejawia się w trzech formach.
 			\begin{itemize}
-				\item \textbf{forma słaba} --- w cenie instrumentu finansowego znajdują
+				\item \textbf{Forma słaba} --- w cenie instrumentu finansowego znajdują
 					odzwierciedlenie wszystkich informacje historyczne z instrumentem powiązane.
-				\item \textbf{forma półsilna} --- w cenie instrumentu finansowego znajdują
+				\item \textbf{Forma półsilna} --- w cenie instrumentu finansowego znajdują
 					odzwierciedlenie informacje uwzględnione w słabej formie efektywności oraz
-					ogólnie dostępne informacje bieżące
-				\item \textbf{forma silna} --- w cenie instrumentu finansowego znajdują
+					ogólnie dostępne informacje bieżące.
+				\item \textbf{Forma silna} --- w cenie instrumentu finansowego znajdują
 					odzwierciedlenie informacje uwzględnione w półsilnej formie efektywności oraz
 					bieżące informacje poufne.
 			\end{itemize}
@@ -268,6 +283,10 @@
 	\end{frame}
 	
 	\begin{frame}{Testowanie autokorelacji}
+		\begin{block}{\textbf{Cel}}
+			Badanie, czy stopy zwrotu instrumentu finansowego z różnych okresów
+			są ze sobą powiązane.
+		\end{block}
 		\begin{columns}
 			\begin{column}{0.5\textwidth}
 				\begin{center}
@@ -280,7 +299,7 @@
 					\end{cases}
 				\]
 				wykorzystując w tym celu test \[
-					t=\frac{\hat{\rho}_i}{\sqrt{\frac{1-\hat{\rho}^2_i}{T-i-2}}} \sim t_{T-i-2}.
+					t=\frac{\hat{\rho}_i}{\sqrt{\frac{1-\hat{\rho}^2_i}{T-i-2}}} \sim t^{\left[T-i-2\right]}.
 				\]
 			\end{column}
 			\begin{column}{0.5\textwidth}
@@ -301,27 +320,37 @@
 	\end{frame}
 	
 	\begin{frame}{Test ilorazów wariancji}
+		\begin{block}{\textbf{Cel}}
+			Badanie, czy stopy zwrotu instrumentu finansowego zmieniają się
+			w losowy sposób.
+		\end{block}
 		Testujemy hipotezę \[
-				H_{0}: \mbox{błądzenie przypadkowe (typu RW1)},
+				H_{0}: \mbox{błądzenie losowe},
 		\] wykorzystując w tym celu test \[
 			SVR_h = \sqrt{\frac{3hT}{2\left(2h-1\right)\left(h-1\right)}} \left(VR_h - 1\right) \sim \mathcal{N}\left(0,1\right),
 		\] gdzie
 		\begin{itemize}
-			\item $VR_h = \frac{S^2\left(r_t+r_{t-1}+\ldots+r_{t-k+1}\right)}{hS^2\left(r_t\right)}.$
+			\item $VR_h = \frac{S^2\left(r_t+r_{t-1}+\ldots+r_{t-k+1}\right)}{hS^2\left(r_t\right)},$
+			\item $S^2\left(r_t\right)$ --- wariancja z szeregu czasowego $r_t.$
 		\end{itemize}
 	\end{frame}
 	
 	\begin{frame}{Test serii}
-		Testujemy hipotezę \[
-				H_{0}: \mbox{dane mają charakter losowy}
-		\] wykorzystując w tym celu test \[
+		\begin{block}{\textbf{Cel}}
+			Badanie, czy stopy zwrotu instrumentu finansowego mają charakter
+			losowy.
+		\end{block}
+		Testujemy hipotezę $H_{0}: \mbox{dane mają charakter losowy},$ 
+		wykorzystując w tym celu test \[
 			U=\frac{K-\mathbb{E}\left(K\right)}{\sqrt{\mbox{Var}\left(K\right)}} \sim \mathcal{N}\left(0,1\right),
 		\] gdzie
 		\begin{itemize}
-			\item $\mathbb{E}\left(K\right) = \frac{2 n_1 n_2 + n}{n},$
-			\item $\mbox{Var}\left(K\right) = \frac{2 n_1 n_2 \left(2 n_1 n_2 - n\right)}{\left(n - 1\right) n^2},$
 			\item $K$ --- liczba wszystkich serii obserwacji nieujemnych oraz obserwacji ujemnych,
-			\item $n, n_1, n_2$ --- liczba odpowiednio wszystkich obserwacji, nieujemnych obserwacji, ujemnych obserwacji w szeregu.
+			\item $\mathbb{E}\left(K\right) = \frac{2 n_1 n_2 + n}{n}$ oraz
+				$\mbox{Var}\left(K\right) = \frac{2 n_1 n_2 \left(2 n_1 n_2 - n\right)}{\left(n - 1\right) n^2},$
+			\begin{itemize}
+				\item $n, n_1, n_2$ --- liczba odpowiednio wszystkich obserwacji, nieujemnych obserwacji, ujemnych obserwacji w szeregu.
+			\end{itemize}
 		\end{itemize}
 	\end{frame}
 	
