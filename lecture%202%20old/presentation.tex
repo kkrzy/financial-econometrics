@@ -1,0 +1,722 @@
+\documentclass[a4paper, 11pt]{beamer}
+
+\usepackage{polski}
+\usepackage[utf8]{inputenc}
+\usepackage[utf8]{inputenc}
+
+\mode<presentation> {
+	\usetheme{Frankfurt}
+	\setbeamercovered{transparent}
+	\usecolortheme{default}
+}
+
+\title{Ekonometria Finansowa}
+\subtitle{Jednowymiarowe modele szeregów czasowych}
+\author{mgr Paweł Jamer\thanks{pawel.jamer@gmail.com}}
+
+\begin{document}
+
+	\begin{frame}
+		\titlepage
+	\end{frame}
+	
+	\section{Biały szum}
+	
+	\begin{frame}{Biały szum}
+		\begin{block}{\textbf{Biały szum}}
+			Białym szumem nazwiemy szereg czasowy $\epsilon_t$ niezależnych zmiennych losowych o tym samym rozkładzie taki, że \begin{eqnarray*}
+				\mathbb{E}\left(\epsilon_t\right) & = & 0,\\
+				\mbox{Var}\left(\epsilon_t\right) & = & \sigma^2.
+			\end{eqnarray*} Biały szum oznaczać będziemy symbolem $\mbox{WN}\left(0, \sigma^2\right)$.
+		\end{block}
+		\begin{alert}{\textbf{Uwaga}}
+			Bardziej złożone modele szeregów czasowych wykorzystują biały szum do opisu niepewności pomiaru opisywanych przez nie wielkości.
+		\end{alert}
+	\end{frame}
+	
+	\section{Błądzenie losowe}
+	
+	\begin{frame}{Błądzenie losowe}
+		\begin{block}{\textbf{Błądzenie losowe (bez dryftu)}}
+			Szereg czasowy $p_t$ nazwiemy błądzeniem losowym bez dryftu, jeżeli spełnia on równanie \[
+				p_t = p_{t-1} + \epsilon_t,
+			\] gdzie
+			\begin{itemize}
+				\item $\epsilon_t$ --- biały szum.
+			\end{itemize}
+		\end{block}
+		\begin{alert}{\textbf{Uwaga.}}
+			Uzupełniając powyższy wzór o niezerową stałą $\alpha$ \[
+				p_t = \alpha + p_{t-1} + \epsilon_t
+			\] uzyskujemy proces błądzenia losowego z dryftem.
+		\end{alert}
+	\end{frame}
+	
+	\begin{frame}{Ceny instrumentów finansowych}
+		\begin{block}{\textbf{Hipoteza}}
+			Cena instrumentu finansowego $p_t$ jest błądzeniem losowym.
+		\end{block}
+		Rozważmy model \[
+			p_t = \alpha + \rho p_{t-1} + \epsilon_t.
+		\]
+		Prawdziwość powyższej hipotezy jest równoznaczna z tym, że:
+		\begin{itemize}
+			\item $\hat{\rho}$ statystycznie nie różni się od jedności,
+			\item $\epsilon_t$ jest białym szumem.
+		\end{itemize}
+		Ponadto, jeżeli na zadanym poziomie istotności zachodzi:
+		\begin{itemize}
+			\item $\hat{\alpha} = 0,$ to $p_t$ jest błądzeniem losowym bez dryfu,
+			\item $\hat{\alpha} \neq 0,$ to $p_t$ jest błądzeniem losowym z dryfem.
+		\end{itemize}
+		\begin{alert}{\textbf{Uwaga.}}
+			Z powodu możliwej niestacjonarności $p_t$ estymacja powyższego równania
+			jest problematyczna.
+		\end{alert}
+	\end{frame}
+	
+	\begin{frame}{Właściwości błądzenia losowego}
+		\begin{columns}[onlytextwidth]
+			\begin{column}{0.5\textwidth}
+				\textbf{Błądzenie losowe bez dryftu} \[
+					p_t = p_{t-1} + \epsilon_t,
+				\] \[
+					p_t = p_0 + \sum_{h=0}^{t} \epsilon_{t-h},
+				\] \[
+					\mathbb{E}\left(p_t\right) = p_0,
+				\] \[
+					\mbox{Var}\left(p_t\right) = t \sigma^2_{\epsilon_t}.
+				\]
+			\end{column}
+			\begin{column}{0.5\textwidth}
+				\textbf{Błądzenie losowe z dryftem} \[
+					p_t = \alpha + p_{t-1} + \epsilon_t,
+				\] \[
+					p_t = p_0 + t \alpha + \sum_{h=0}^{t} \epsilon_{t-h},
+				\] \[
+					\mathbb{E}\left(p_t\right) = p_0 + t \alpha,
+				\] \[
+					\mbox{Var}\left(p_t\right) = t \sigma^2_{\epsilon_t}.
+				\]
+			\end{column}
+		\end{columns}
+	\end{frame}
+	
+	\begin{frame}{Stopy zwrotu instrumentów finansowych}
+		Rozważmy model błądzenia losowego bez dryftu dla logarytmu cen pewnego instrumentu finansowego \[
+			\log\left(p_t\right) = \log\left(p_{t-1}\right) + \epsilon_t.
+		\] Model ten przekształcić możemy do postaci \[
+			r_t = \log\left(\frac{p_t}{p_{t-1}}\right) = \epsilon_t.
+		\]
+		\begin{alert}{\textbf{Uwaga.}}
+			Badanie czy logarytm cen $p_t$ instrumentu finansowego jest błądzeniem losowym
+			sprowadza się do ustalenia, czy logarytmiczne stopy zwrotu $r_t$ tego instrumentu są białym szumem.
+		\end{alert}
+	\end{frame}
+	
+	\begin{frame}{Krytyka}
+		Optymalna prognoza ceny instrumentu finansowego na okres przyszły, to przyjęcie ceny tego instrumentu z okresu bieżącego.
+		\\~\\
+		Nie uwzględnia się rentowności zależnej od ryzyka.
+	\end{frame}
+	
+	\section{Modele ARMA}
+
+	\begin{frame}{Proces AR}
+		Zdefiniujmy operator \[
+			\varphi\left(B\right) = I - \varphi_{1} B - \ldots - \varphi_{p} B^{p},
+		\] gdzie $p \in \mathbb{Z}_{+}.$
+		\begin{block}{\textbf{Proces AR}}
+			Słabo stacjonarny szereg czasowy $X_t$ nazwiemy procesem AR (autoregresyjnym) rzędu $p,$ jeżeli spełnia on równanie \[
+				\varphi\left(B\right) X_t = \epsilon_{t},
+			\] gdzie $\epsilon_{t} \sim \mbox{WN}\left(0, \sigma^2\right).$
+		\end{block}
+		\begin{alert}{\textbf{Oznaczenie.}}
+			Proces AR rzędu $p$ oznacza się symbolem $\mbox{AR}\left(p\right).$
+		\end{alert}
+	\end{frame}
+
+	\begin{frame}{Proces MA}
+		Zdefiniujmy operator \[
+			\theta\left(B\right) = I + \theta_{1} B + \ldots +\theta_{q} B^{q},
+		\] gdzie $q \in \mathbb{Z}_{+}.$
+		\begin{block}{\textbf{Proces MA}}
+			Słabo stacjonarny szereg czasowy $X_t$ nazwiemy procesem MA (średniej ruchomej) rzędu $q,$ jeżeli spełnia on równanie \[
+				X_t = \theta\left(B\right) \epsilon_{t},
+			\] gdzie $\epsilon_{t} \sim \mbox{WN}\left(0, \sigma^2\right).$
+		\end{block}
+		\begin{alert}{\textbf{Oznaczenie.}}
+			Proces MA rzędu $q$ oznacza się symbolem $\mbox{MA}\left(q\right).$
+		\end{alert}
+	\end{frame}
+	
+	\begin{frame}{Proces ARMA}
+		\framesubtitle{Definicja}
+		\begin{block}{\textbf{Proces ARMA}}
+			Słabo stacjonarny szereg czasowy $X_t$ nazwiemy procesem $\mbox{ARMA}\left(p, q\right),$ jeżeli spełnia on równanie \[
+				\varphi\left(B\right) X_t = \theta\left(B\right) \epsilon_{t},
+			\] gdzie $\epsilon_{t} \sim \mbox{WN}\left(0, \sigma^2\right).$
+		\end{block}
+	\end{frame}
+	
+	\begin{frame}{Proces ARMA}
+		\framesubtitle{Estymowanie funkcji autokorelacji (ACF)}
+		\begin{block}{\textbf{Estymator funkcji autokorelacji}}
+			Jako estymator funkcji autokorelacji procesu $X_t$ możemy przyjąć \[
+				\hat{\rho}_h = \frac{\sum_{t=1}^{T-h}\left(X_t - \overline{X}\right)\left(X_{t+h} - \overline{X}\right)}{\sum_{t=1}^{T}\left(X_t - \overline{X}\right)^2}
+			\]
+		\end{block}
+	\end{frame}
+	
+	\begin{frame}{Proces ARMA}
+		\framesubtitle{Estymowanie funkcji autokorelacji częściowej (PACF)}
+		\begin{block}{\textbf{Estymator funkcji autokorelacji częściowej}}
+			Jako estymator funkcji autokorelacji częściowej procesu $X_t$ możemy przyjąć \begin{eqnarray*}
+				\alpha_{0} & = & 1,\\
+				\alpha_{1} & = & \phi_{1,1} = \hat{\rho}_1,\\
+				\alpha_{h} & = & \phi_{h,h} = \frac{
+					\hat{\rho}_h - \sum_{j=1}^{h-1} \phi_{h-1,j}{\hat{\rho}_{h-j}}
+				}{
+					1 - \sum_{j=1}^{h-1} \phi_{h-1,j} \hat{\rho}_j
+				}, h = 2, 3, \ldots,
+			\end{eqnarray*} gdzie $\phi_{i,j}$ to rozwiązania układu Yule'a-Walkera.
+		\end{block}
+		\begin{alert}{\textbf{Intuicja.}}
+			Współczynnik autokorelacji częściowej mierzy korelację między zmiennymi
+			$X_t$ oraz $X_{t-h}$ po eliminacji wpływu zmiennych pośrednich.
+		\end{alert}
+	\end{frame}
+	
+	\begin{frame}{Proces ARMA}
+		\framesubtitle{Identyfikacja na podstawie ACF oraz PACF}
+		\begin{itemize}
+			\item Jeżeli proces jest typu $\mbox{AR}\left(p\right),$ to funkcja
+				autokorelacji powoli maleje, natomiast funkcja autokorelacji częściowej
+				staje się statystycznie równa zero od wartości $p + 1.$
+			\item Jeżeli proces jest typu $\mbox{MA}\left(q\right),$ to funkcja
+				autokorelacji staje się statystycznie równa zero od wartości $q + 1,$
+				natomiast funkcja autokorelacji częściowej powoli maleje.
+			\item Jeżeli proces jest typu $\mbox{ARMA}\left(p,q\right),$ to funkcja
+				autokorelacji oraz funkcja autokorelacji częściowej łagodnie zanikają.
+		\end{itemize}
+	\end{frame}
+	
+	\begin{frame}{Proces ARMA}
+		\framesubtitle{Identyfikacja na podstawie kryteriów informacyjnych}
+		\begin{block}{\textbf{Idea}}
+			Należy oszacować modele $\mbox{ARMA}\left(p,q\right)$ dla wszystkich możliwych
+			kombinacji parametrów $p=1,2,\ldots,P$ oraz $q=1,2,\ldots,Q,$ a następnie obliczyć
+			dla nich wartości wybranego kryterium informacyjnego. Minimalna wartość kryterium
+			wyznacza optymalną parę parametrów $p$ i $q.$
+		\end{block}
+	\end{frame}
+	
+	\begin{frame}{Proces ARMA}
+		\framesubtitle{Kryteria informacyjne}
+		Niech $L_{p,q}$ oznacza wiarogoność modelu $\mbox{ARMA}\left(p, q\right).$
+		\begin{block}{\textbf{Kryterium informacyjne Akaike (AIC)}}
+			\[
+				\mbox{AIC}_{p,q} = -2\ln L_{p,q} + 2\left(p + q + 1\right)
+			\]
+		\end{block}
+		\begin{block}{\textbf{Bayesowskie kryterium informacyjne (BIC)}}
+			\[
+				\mbox{BIC}_{p,q} = -2\ln L_{p,q} + \left(p + q + 1\right) \ln T
+			\]
+		\end{block}
+	\end{frame}
+	
+	\begin{frame}{Proces ARMA}
+		\framesubtitle{Podział metod estymacji}
+		\textbf{Metody estymacji:}
+		\begin{itemize}
+			\item Metody estymacji parametrów modelu $\mbox{AR}\left(p\right):$
+			\begin{itemize}
+				\item równania Yule'a-Walkera,
+				\item metoda najmniejszych kwadratów,
+				\item metoda największej wiarogodności.
+			\end{itemize}
+			\item Metody estymacji parametrów modelu $\mbox{ARMA}\left(p,q\right):$
+			\begin{itemize}
+				\item metoda największej wiarogodności.
+			\end{itemize}
+		\end{itemize}
+	\end{frame}
+	
+	\begin{frame}{Proces ARMA}
+		\framesubtitle{Idea metod estymacji}
+		\begin{block}{\textbf{Równania Yule'a-Walkera}}
+			Równania Yule'a-Walkera to liniowy układ równań pozwalający na wyrażenie
+			parametrów autoregresji za pomocą współczynników autokorelacji. Oszacowania
+			parametrów modelu AR(p) otrzymujemy zastępując we wspomnianym układzie
+			współczynniki autokorelacji ich estymatorami, a następnie rozwiązując układ.
+		\end{block}
+		\begin{block}{\textbf{Metoda najmniejszych kwadratów}}
+			Wykorzystanie klasycznej MNK do stacjonarnego szeregu czasowego typu AR(p).
+			Uzysane w ten sposób estymatory będą zgodne z estymatorami metody największej
+			wiarogodności.
+		\end{block}
+		\begin{block}{\textbf{Metoda największej wiarogodności}}
+			Metoda polegająca na maksymalizacji funkcji największej wiarogodności procesu
+			$\mbox{ARMA}\left(p,q\right).$
+		\end{block}
+	\end{frame}
+	
+	\begin{frame}{Proces ARMA}
+		\framesubtitle{Prognoza}
+		Interesuje nas prognoza na $h$ okresów w przód: \[
+			X_{t+h} = \sum_{k=1}^{p} \rho_{k} X_{t+h-k} + \sum_{k=0}^{q} \theta_{k} \epsilon_{t-k},
+		\] gdzie $\theta_0 = 1.$
+		\\~\\
+		Możemy wyrazić ją jako warunkową wartość oczekiwaną: \begin{eqnarray*}
+			\hat{X}_t\left(h\right) & = & \mathbb{E}\left(X_{t+h} \mid X_t, X_{t-1}, \ldots\right),\\
+			\mathbb{E}\left(X_{t+j} \mid X_t, X_{t-1}, \ldots\right) & = & \begin{cases}
+				X_{t+j}, & j \leq 0,\\
+				\hat{X}_t\left(j\right), & j > 0,
+			\end{cases}\\
+			\mathbb{E}\left(\epsilon_{t+j} \mid \epsilon_t, \epsilon_{t-1}, \ldots\right) & = & \begin{cases}
+				\epsilon_{t+j}, & j \leq 0,\\
+				0, & j > 0.
+			\end{cases}
+		\end{eqnarray*}
+	\end{frame}
+	
+	\begin{frame}{Proces ARIMA}
+		\begin{block}{\textbf{Proces ARIMA}}
+			Szereg czasowy $X_t$ nazwiemy procesem $\mbox{ARIMA}\left(p, d, q\right),$ jeżeli
+			szereg czasowy $\Delta^{d} X_t$ jest procesem $\mbox{ARMA}\left(p, q\right).$
+		\end{block}
+		Z powyższej definicji wynika, że proces $\mbox{ARIMA}\left(p, d, q\right)$ jest opisywany przez następujące równanie: \[
+			\varphi\left(B\right)\left(\Delta^{d} X_{t}\right) = \theta\left(B\right) \epsilon_{t}.
+		\]
+	\end{frame}
+	
+	\begin{frame}{Multiplikatywny proces ARMA}
+		\framesubtitle{Intuicja}
+		Niech proces $X_t$ charakteryzuje równanie \[
+			\varphi_X\left(B\right) X_t = \theta_X\left(B\right) \epsilon_t,
+		\] natomiast proces $\epsilon_t$ równanie \[
+			\varphi_{\epsilon}\left(B\right) \epsilon_t = \theta_{\epsilon}\left(B\right) \eta_t,
+		\] gdzie $\eta_t \sim \mbox{WN}\left(0, \sigma^2\right).$
+		Składając powyższe równania uzyskujemy \[
+			\varphi_{\epsilon}\left(B\right) \varphi_X\left(B\right) X_t = \theta_X\left(B\right) \theta_{\epsilon}\left(B\right) \eta_t.
+		\]
+		\begin{alert}{\textbf{Uwaga.}}
+			Powyższe złożenie dwóch procesów ARMA pozostaje nadal procesem ARMA.
+		\end{alert}
+	\end{frame}
+	
+	\begin{frame}{Multiplikatywny proces ARMA}
+		\framesubtitle{Definicja}
+		\begin{block}{\textbf{Multiplikatywny proces ARMA}}
+			Szereg czasowy $X_t$ nazwiemy multiplikatywnym procesem
+			$\mbox{ARMA}\left(p, q\right)\times\left(P,Q\right)_s,$ jeżeli
+			spełnia on równanie \[
+				\Phi\left(B^s\right) X_t = \Theta\left(B^s\right) \epsilon_t,
+			\] gdzie
+			\begin{itemize}
+				\item $\Phi$ --- operator analogiczny do $\varphi$ rzędu $P,$
+				\item $\Theta$ --- operator analogiczny do $\theta$ rzędu $Q,$
+				\item $\epsilon_t$ --- proces $\mbox{ARMA}\left(p,q\right).$
+			\end{itemize}
+		\end{block}
+	\end{frame}
+	
+	\begin{frame}{Multiplikatywny proces ARMA}
+		\framesubtitle{Właściwości}
+		\begin{alert}{\textbf{Reprezentacja.}}
+			Proces $\mbox{ARMA}\left(p, q\right)\times\left(P,Q\right)_s$ jest
+			specyficznym przypadkiem procesu $\mbox{ARMA}\left(p+sP,q+sQ\right).$
+		\end{alert}
+		\\~\\
+		\begin{alert}{\textbf{Estymacja.}}
+			Estymacja parametrów multiplikatywnych procesów ARMA odbywa się przez osobną
+			estymację parametrów każdego z procesów ARMA wchodzących w jego skład.
+		\end{alert}
+	\end{frame}
+	
+	\begin{frame}{Sezonowy proces ARIMA}
+		\begin{block}{\textbf{Sezonowy proces ARIMA}}
+			Szereg czasowy $X_t$ nazwiemy sezonowym procesem
+			$\mbox{ARIMA}\left(p, d, q\right)\times\left(P,D,Q\right)_s,$
+			jeżeli spełnia on równanie \[
+				\Phi\left(B^s\right) \phi\left(B\right) \Delta_s^D \Delta^d X_t = \Theta\left(B^s\right) \theta\left(B\right) \epsilon_t,
+			\] gdzie
+			\begin{itemize}
+				\item $\epsilon_t$ --- biały szum,
+				\item $\Delta_s^D \Delta^d X_t$ --- proces stacjonarny.
+			\end{itemize}
+		\end{block}
+	\end{frame}
+	
+	\section{Modele GARCH}
+	
+	\begin{frame}{Stylizowane fakty}
+		\textbf{Stylizowane fakty dla stóp zwrotu:}
+		\begin{itemize}
+			\item Rozkłady stóp zrotu mają grubsze ogony niż rozkład normalny.
+			\item Wartości stóp zwrotu są nieskorelowane, ale ich kwadraty są skorelowane.
+			\item Duże zmianny wartości stóp zwrotu następują często po wcześniejszych dużych zmianach.
+		\end{itemize}
+	\end{frame}
+	
+	\begin{frame}{Model ARCH}
+		\begin{block}{\textbf{Model ARCH}}
+			Powiemy, że szereg czasowy $r_t$ jest procesem $\mbox{ARCH}\left(p\right),$ jeżeli \begin{eqnarray*}
+				r_t & = & \sigma_t \epsilon_t,\\
+				\sigma^2_t & = & \alpha_0 + \sum_{j=1}^{p} \alpha_j r_{t-j}^2,
+			\end{eqnarray*} gdzie
+			\begin{itemize}
+				\item $\epsilon_t \mbox{ iid } \mbox{WN}\left(0, 1\right),$
+				\item $\alpha_0 > 0,$
+				\item $\alpha_j \geq 0$ dla $j=1,2,\ldots,p.$
+			\end{itemize}
+		\end{block}
+		\begin{alert}{\textbf{Uwaga.}}
+			Model $\mbox{ARCH}$ jest często wykorzystywany do opisu reszt w modelach $\mbox{ARMA}.$
+		\end{alert}
+	\end{frame}
+	
+	\begin{frame}{Stacjonarność}
+		\begin{block}{\textbf{Stacjonarność}}
+			Stacjonarne szeregi czasowe typu $\mbox{ARCH}\left(p\right)$ spełniają nierówność \[
+				\sum_{j=1}^{p} \alpha_j < 1.
+			\]
+		\end{block}
+	\end{frame}
+	
+	\begin{frame}{Warunkowa wariancja}
+		Niech $\boldsymbol{\mathcal{R}}_{\tau}$ będzie zbiorem wszystkich informacji o szeregu
+		czasowym $r_t$ do chwili czasu $\tau.$ Wówczas: \begin{eqnarray*}
+			\mbox{Var}\left( r_t \mid \boldsymbol{\mathcal{R}}_{t-1} \right) & = &
+				\mathbb{E}\left( r_t^2 \mid \boldsymbol{\mathcal{R}}_{t-1} \right) -
+				\mathbb{E}^2\left( r_t \mid \boldsymbol{\mathcal{R}}_{t-1} \right),\\
+			\mbox{Var}\left( r_t \mid \boldsymbol{\mathcal{R}}_{t-1} \right) & = &
+				\mathbb{E}\left( \sigma_t^2 \epsilon_t^2 \mid \boldsymbol{\mathcal{R}}_{t-1} \right) -
+				\mathbb{E}^2\left( \sigma_t \epsilon_t \mid \boldsymbol{\mathcal{R}}_{t-1} \right),\\
+			\mbox{Var}\left( r_t \mid \boldsymbol{\mathcal{R}}_{t-1} \right) & = &
+				\sigma_t^2 \mathbb{E}\left( \epsilon_t^2 \mid \boldsymbol{\mathcal{R}}_{t-1} \right) -
+				\sigma_t^2 \mathbb{E}^2\left( \epsilon_t \mid \boldsymbol{\mathcal{R}}_{t-1} \right),\\
+			\mbox{Var}\left( r_t \mid \boldsymbol{\mathcal{R}}_{t-1} \right) & = &
+				\sigma_t^2 \mathbb{E}\left( \epsilon_t^2 \right) -
+				\sigma_t^2 \mathbb{E}^2\left( \epsilon_t \right),\\
+			\mbox{Var}\left( r_t \mid \boldsymbol{\mathcal{R}}_{t-1} \right) & = &
+				\sigma_t^2.
+		\end{eqnarray*}
+		\begin{alert}{\textbf{Wniosek.}}
+			$\sigma_t^2$ jest warunkową wariancją procesu $r_t$ pod warunkiem przeszłości
+			$\boldsymbol{\mathcal{R}}_{t-1}.$
+		\end{alert}
+	\end{frame}
+	
+	\begin{frame}{Efekt ARCH}
+		\framesubtitle{Test Engle'a}
+		Szacujemy parametry modelu: \[
+			r_t^2 = \alpha_0 + \sum_{j=1}^p \alpha_j r_{t-j}^2 + \eta_t, \eta_t \mbox{ iid } \mbox{WN}\left(0, s\right).
+		\]
+		\\~\\
+		Testujemy hipotezę postaci: \[
+			H_0: \sum_{j=1}^p \alpha_j^2 = 0.
+		\]
+		\\~\\
+		Statystyka testowa przyjmuje postać: \[
+			LM = T R^2 \rightarrow \chi^2_p,
+		\] gdzie $R^2$ to współczynnik determinacji modelu wyjściowego.
+	\end{frame}
+	
+	\begin{frame}{Efekt ARCH}
+		\framesubtitle{Test McLeoda-Li}
+		Badamy szereg czasowy kwadratów wartości szeregu czsowego wyjściowego $r_t.$
+		\\~\\
+		Testujemy hipotezę postaci \[
+			H_{0}: \sum_{j=1}^{h} \rho^{2}_j = 0.
+		\]
+		\\~\\
+		Statystyka testowa przyjmuje postać: \[
+			T_{LB} = n \left(n + 2\right) \sum_{j=1}^{h}
+				\frac{\hat{\rho}^{2}_j}{n - j} \rightarrow \chi^{2}_{h},
+		\] gdzie \[
+			\hat{\rho_j} = \frac{\sum_{t=h+1}^T r_t^2 r_{t-h}^2}{\sum_{t=1}^T r_t^4}.
+		\]
+	\end{frame}
+	
+	\begin{frame}{Model GARCH}
+		\begin{block}{\textbf{Model GARCH}}
+			Powiemy, że szereg czasowy $r_t$ jest procesem $\mbox{GARCH}\left(p,q\right),$ jeżeli \begin{eqnarray*}
+				r_t & = & \sigma_t \epsilon_t,\\
+				\sigma^2_t & = & \alpha_0 + \sum_{j=1}^{q} \alpha_j r_{t-j}^2 + \sum_{j=1}^{p} \beta_j \sigma_{t-j}^2,
+			\end{eqnarray*} gdzie
+			\begin{itemize}
+				\item $\epsilon_t \mbox{ iid } \mbox{WN}\left(0, 1\right),$
+				\item $\alpha_0 > 0,$
+				\item $\alpha_j \geq 0$ dla $j=1,2,\ldots,q,$
+				\item $\beta_j \geq 0$ dla $j=1,2,\ldots,p.$
+			\end{itemize}
+		\end{block}
+		\begin{alert}{\textbf{Uwaga.}}
+			Model $\mbox{GARCH}$ jest często wykorzystywany do opisu reszt w modelach $\mbox{ARMA}.$
+		\end{alert}
+	\end{frame}
+	
+	\begin{frame}{Właściwości}
+		\begin{itemize}
+			\item Przy spełnieniu odpowiednich założeń model $\mbox{GARCH}$ można sprowadzić
+				do postaci modelu $\mbox{ARCH}.$
+			\item Model $\mbox{GARCH}\left(p,q\right)$ można przedstawić w postaci modelu
+				$\mbox{ARMA}\left(m,p\right)$ dla szeregu $r_t^2,$ gdzie $m=\max\left(p,q\right).$
+		\end{itemize}
+		\begin{block}{\textbf{Stacjonarność}}
+			Stacjonarne szeregi czasowe typu $\mbox{GARCH}\left(p,q\right)$ spełniają nierówność \[
+				\sum_{j=1}^{q} \alpha_j + \sum_{j=1}^{p} \beta_j < 1.
+			\]
+		\end{block}
+	\end{frame}
+	
+	\begin{frame}{Estymacja}
+		Estymacja modeli klasy GARCH odbywa się z wykorzystaniem metody
+		największej wiarogodności. Maksymalizuje się funkcję log-wiarogodności \[
+			L_T\left(\boldsymbol{\theta}\right) =
+				\sum_{t=1}^{T} \ell_t\left(\boldsymbol{\theta}\right),
+		\] gdzie
+		\begin{itemize}
+			\item $\boldsymbol{\theta}$ --- wektor wszystkich parametrów modelu,
+			\item $\ell_t\left(\boldsymbol{\theta}\right)$ --- funkcja log-wiarogodności
+				dla obserwacji z chwili czasu $t.$
+		\end{itemize}
+	\end{frame}
+	
+	\begin{frame}{Estymacja}
+		\framesubtitle{Przypadek reszt o rozkładzie normalnym}
+		
+		Niech dane będzie równanie \[
+			r_t = \sigma_t \epsilon_t,
+		\] gdzie $\epsilon_t \mbox{ iid } \mathcal{N}\left(0, 1\right).$
+		\\~\\
+		Funkcja log-wiarogodności dla tego równania w chwili czasu $t$ wyraża się
+		wzorem \[
+			\ell_t\left(\boldsymbol{\theta}\right) = 
+				\log \frac{1}{\sqrt{2\pi}\sigma_t} e^{-\frac{r_t^2}{2\sigma_t^2}} = 
+				-\frac{r_t^2}{2\sigma_t^2} - \log \sigma_t - \log \sqrt{2\pi}.
+		\]
+		
+		Finalna postać tej funkcji zależy od sposobu zdefiniowania
+		warunkowej wariancji $\sigma_t^2$ w danym modelu klasy GARCH.
+	\end{frame}
+	
+	\begin{frame}{Ocena jakości modelu}
+		\framesubtitle{Idea}
+		\begin{block}{\textbf{Idea}}
+			Inwestor jest bardziej zainteresowany poznaniem kierunku zmian kursu
+			instrumentu finansowego, niż dokładną wartością tego kursu.
+		\end{block}
+	\end{frame}
+	
+	\begin{frame}{Ocena jakości modelu}
+		\framesubtitle{Miary zgodności kierunku zmian stopy zwrotu}
+		Niech:
+		\begin{itemize}
+			\item $r_t$ --- rzeczywista wartość stopy zwrotu w chwili czasu $t,$
+			\item $\hat{r}_t$ --- predykowana wartość stopy zwrotu w chwili czasu $t.$
+		\end{itemize}
+		Podstawowe miary zgodności kierunku zmian stopy zwrotu to:
+		\begin{eqnarray*}
+			Q_1 & = & \frac{
+				\#\left\{t: r_t \hat{r}_t > 0\right\}
+			}{
+				\#\left\{t: r_t \hat{r}_t \neq 0\right\}
+			},\\
+			Q_2 & = & \frac{
+				\#\left\{t: r_{t-1} r_t < 0 \wedge r_t \hat{r}_t > 0\right\}
+			}{
+				\#\left\{t: r_{t-1} r_t < 0 \wedge r_t \hat{r}_t \neq 0\right\}
+			}.
+		\end{eqnarray*}
+	\end{frame}
+	
+	\begin{frame}{Ocena jakości modelu}
+		\framesubtitle{Modyfikacje miary $Q_1$}
+		
+		Uwzględniając koszta transakcji w wysokości $g$ możemy miarę $Q_1$
+		zmodyfikować w następujący sposób:\[
+			Q_1^{\prime} = \frac{
+				\#\left\{t: r_t > g \wedge r_t \hat{r}_t > 0\right\}
+			}{
+				\#\left\{t: r_t > g \wedge r_t \hat{r}_t \neq 0\right\}
+			}.
+		\]
+		
+		W przypadku modeli pozwalających szacować wyłącznie zmienność stopy zwrotu
+		$\sigma_t$ (np. modele GARCH bez części ARIMA) możemy zastosować następującą
+		modyfikację miary $Q_1:$ \[
+			Q_1^{x} = \frac{
+				\#\left\{t: r_t \Delta \hat{\sigma}_t < 0\right\}
+			}{
+				\#\left\{t: r_t \Delta \hat{\sigma}_t \neq 0\right\}
+			}.
+		\]
+		
+		
+	\end{frame}
+	
+	\begin{frame}{Model GARCH-M}
+		\begin{block}{\textbf{Model GARCH-M}}
+			Szereg czasowy $y_t$ jest procesem $\mbox{GARCH-M}\left(p,q\right),$ jeżeli \begin{eqnarray*}
+				y_t & = & \lambda + \delta \sigma_t + r_t,\\
+				r_t & = & \sigma_t \epsilon_t,\\
+				\sigma^2_t & = & \alpha_0 + \sum_{j=1}^{q} \alpha_j r_{t-j}^2 + \sum_{j=1}^{p} \beta_j \sigma_{t-j}^2,
+			\end{eqnarray*} gdzie
+			\begin{itemize}
+				\item $\epsilon_t \mbox{ iid } \mbox{WN}\left(0, 1\right),$
+				\item $\alpha_0 > 0,$
+				\item $\alpha_j \geq 0$ dla $j=1,2,\ldots,q,$
+				\item $\beta_j \geq 0$ dla $j=1,2,\ldots,p,$
+				\item $\lambda, \delta$ stałe.
+			\end{itemize}
+		\end{block}
+	\end{frame}
+	
+	\begin{frame}{Właściwości}
+		\begin{itemize}
+			\item Model $\mbox{GARCH-M}\left(p,q\right)$ jest rozszerzeniem modelu $\mbox{GARCH}\left(p,q\right)$ o dodanie heteroskedastyczności do średniej równania.
+			\item Parametr $\lambda$ oznacza średnią modelu GARCH
+			\item Parametr $\sigma$ interpretowany jest jako współczynnik zmienności dla średniej.
+		\end{itemize}
+	\end{frame}
+	
+	\begin{frame}{Model EGARCH}
+		\begin{block}{\textbf{Model EGARCH}}
+			Szereg czasowy $r_t$ jest procesem $\mbox{EGARCH}\left(p,q\right),$ jeżeli \begin{eqnarray*}
+				r_t & = & \sigma_t \epsilon_t,\\
+				\ln\sigma^2_t & = & \alpha_0 + \sum_{j=1}^{q} \alpha_j r_{t-j}^2 + \sum_{j=1}^{p} \beta_j \ln\sigma_{t-j}^2,
+			\end{eqnarray*} gdzie
+			\begin{itemize}
+				\item $\epsilon_t \mbox{ iid } \mbox{WN}\left(0, 1\right),$
+				\item $\alpha_0 > 0,$
+				\item $\alpha_j \geq 0$ dla $j=1,2,\ldots,q,$
+				\item $\beta_j \geq 0$ dla $j=1,2,\ldots,p.$
+			\end{itemize}
+		\end{block}
+	\end{frame}
+	
+	\begin{frame}{Model TGARCH}
+		\begin{block}{\textbf{Model TGARCH}}
+			Szereg czasowy $r_t$ jest procesem $\mbox{TGARCH}\left(p,q\right),$ jeżeli \begin{eqnarray*}
+				r_t & = & \sigma_t \epsilon_t,\\
+				\sigma^2_t & = & \alpha_0 + \sum_{j=1}^{q} \alpha_j r_{t-j}^2 + \sum_{j=1}^{q} \alpha_j S_{t-j}r_{t-j}^2 + \sum_{j=1}^{p} \beta_j \sigma_{t-j}^2,
+			\end{eqnarray*} gdzie
+			\begin{itemize}
+				\item $\epsilon_t \mbox{ iid } \mbox{WN}\left(0, 1\right),$
+				\item $\alpha_0 > 0,$
+				\item $\alpha_j \geq 0$ dla $j=1,2,\ldots,q,$
+				\item $\beta_j \geq 0$ dla $j=1,2,\ldots,p,$
+				\item $S_{t-j} = 
+					\begin{cases}
+						1, & \mbox{dla } r_{t-j} < 0\\
+						0, & \mbox{dla } r_{t-j} \geq 0
+					\end{cases}$
+			\end{itemize}
+		\end{block}
+	\end{frame}
+	
+	\section{Model ECM}
+	
+	\begin{frame}{Kointegracja}
+		\begin{alert}{\textbf{Idea.}}
+			Chcemy wiedzieć, czy bazując na pewnej grupie niestacjonarnych 
+			szeregów czasowych możemy bezpiecznie zbudować model.
+		\end{alert}
+		\begin{block}{\textbf{Kointegracja}}
+			Powiemy, że szeregi czasowe $X_{1,t}, X_{2,t}, \ldots, X_{n,t}$ są skointegrowane w stopniu $\left(d,b\right),$ jeżeli dla każdego $i=1,2,\ldots,n$ zachodzi \[
+				X_{i,t} \sim I\left(d\right)
+			\] oraz istnieją takie wartości $\beta_1,\beta_2,\ldots,\beta_n,$ że \[
+				\beta_1 X_{1,t} + \beta_2 X_{2,t} + \ldots + \beta_n X_{n,t} \sim I\left(d - b\right).
+			\]
+		\end{block}
+		\begin{alert}{\textbf{Intuicja.}}
+			Relacje pomiędzy skointegrowanymi niestacjonarnymi szeregami 
+			czasowymi pozostają w długiej perspektywie czasowej niezmienne.
+		\end{alert}
+	\end{frame}
+	
+	\begin{frame}{Testowanie kointegracji}
+		\textbf{Procedura Engle'a-Grangera.}
+		\begin{enumerate}
+			\item Należy zweryfikować czy wszystkie analizowane szeregi czasowe 
+				charakteryzuje ten sam stopień integracji.
+			\item Należy zbudować model regresji liniowej wielorakiej, w którym 
+				jeden z analizowanych szeregów pełni rolę zmiennej objaśnianej, 
+				pozosałe natomiast zmiennych objaśniających.
+			\item Należy przetestować stopień integracji reszt wyznaczonego w 
+				poprzednim kroku modelu.
+		\end{enumerate}
+	\end{frame}
+	
+	\begin{frame}{Model ECM}
+		\begin{block}{\textbf{Model korekty błędem (ECM)}}
+			\[
+				\Delta y_{t} =
+					\mu +
+					\alpha \left(y_{t-1} - \beta_{0} - \beta_{1} x_{t-1}\right) + 
+					\sum_{i=1}^{k-1} \theta_{i} \Delta y_{t-i} + 
+					\sum_{i=0}^{k-1} \gamma_{i} \Delta x_{t-i} + 
+					\epsilon_{t}
+			\]
+		\end{block}
+		\textbf{Interpretacja:}
+		\begin{itemize}
+			\item $y_{t-1} = \beta_{0} + \beta_{1} x_{t-1}$ --- równanie równowagi
+				długookresowej,
+			\item $y_{t-1} - \beta_{0} - \beta_{1} x_{t-1}$ --- odchylenie od 
+				równowagi długookr.,
+			\item $\alpha$ --- współczynnik opisujący szybkość dostosowywania się 
+				zmiennej objaśnianej do poziomu równowagi długookresowej (w 
+				stabilnym modelu $\alpha < 0$).
+			\item $\theta_{i}, \gamma_{i}$ --- współczynniki opisujące dynamikę
+				krótkookresową.
+		\end{itemize}
+	\end{frame}
+	
+	\begin{frame}{Stosowalność}
+		\begin{alert}{\textbf{Uwaga.}}
+			Twierdzenie Grangera o reprezentacji gwarantuje nam możliwość
+			zastosowania mechanizmu korekty błędem względem skointegrowanych
+			szeregów czasowych.
+		\end{alert}
+	\end{frame}
+	
+	\begin{frame}{Estymacja}
+		\begin{enumerate}
+			\item Estymacja parametrów równania równowagi długookresowej \[
+				y_{t-1} = \beta_{0} + \beta_{1} x_{t-1}.
+			\]
+			\item Skonstruowanie szeregów czasowych \begin{eqnarray*}
+				\epsilon_{t} & = & y_{t} - \beta_{0} - \beta_{1} x_{t},\\
+				\Delta x_{t} & = & x_{t} - x_{t-1},\\
+				\Delta y_{t} & = & y_{t} - y_{t-1}.\\
+			\end{eqnarray*}
+			\item Estymacja parametrów równania modelu korekty błędem \[
+				\Delta y_{t} =
+					\mu +
+					\alpha \epsilon_{t-1} + 
+					\sum_{i=1}^{k-1} \theta_{i} \Delta y_{t-i} + 
+					\sum_{i=0}^{k-1} \gamma_{i} \Delta x_{t-i} + 
+					\epsilon_{t}
+			\]
+		\end{enumerate}
+	\end{frame}
+
+	\section*{}
+
+	\begin{frame}
+		\center
+		\Huge \bfseries
+		Pytania?
+	\end{frame}
+
+	\begin{frame}
+		\center
+		\Huge \bfseries
+		Dziękuję za uwagę!
+	\end{frame}
+
+\end{document}
