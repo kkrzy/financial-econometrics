@@ -25,10 +25,320 @@
 		\titlepage
 	\end{frame}
 	
-	\section{section}
+	\section{Definicje}
 	
-	\begin{frame}{frame}
+	\begin{frame}{Klasyczny model dekompozycji szeregu czasowego}
+		Niestacjonarny szereg czasowy $X_t$ zapisać możemy w postaci \[
+			X_t = m_t + s_t + Y_t,
+		\]
+		gdzie
+		\begin{itemize}
+			\item $m_t$ --- składowa trendu,
+			\item $s_t$ --- składowa sezonowa spełniająca warunek \[
+					\left(\exists d>0\right) s_{t+d} = s_d,
+				\]
+			\item $Y_t$ --- proces SSS taki, że $\mathbb{E}\left(Y_t\right)=0.$
+		\end{itemize}
+	\end{frame}
+	
+	\begin{frame}{Ekonomiczny model dekompozycji szeregu czasowego}
+		Ekonomiści dokonują czasami dekompozycji niestacjonarnego szeregu czasowego
+		$X_t$ w sposób następujący \[
+			X_t = m_t + s_t + c_t + Y_t,
+		\]
+		gdzie
+		\begin{itemize}
+			\item $m_t$ --- składowa trendu,
+			\item $s_t$ --- składowa sezonowa,
+			\item $c_t$ --- składowa wahań cyklicznych (koniunkturalnych),
+			\item $Y_t$ --- proces SSS taki, że $\mathbb{E}\left(Y_t\right)=0.$
+		\end{itemize}
+		\begin{alert}{\textbf{Uwaga.}}
+			Składowa wahań cyklicznych jest rozpatrywana albo łącznie z trendem albo
+			łącznie ze składową przypadkową.
+		\end{alert}
+	\end{frame}
+
+	\section{Estymacja składowej trendu}
+	
+	\begin{frame}{Przegląd metod}
+		W celu wyodrębnienia składowej trendu można:
+		\begin{itemize}
+			\item wykorzystać model trendu,
+			\item wykorzystać średnie kroczące,
+			\item dokonać różnicowania szeregu czasowego,
+			\item ...
+		\end{itemize}
+	\end{frame}
+	
+	\begin{frame}{Model trendu}
+		\framesubtitle{Definicja}
+		\begin{block}{\textbf{Model trendu}}
+			Modelem trendu szeregu czasowego $X_t$ nazwiemy model postaci \[
+				X_t = f\left(t\right) + \epsilon_t,
+			\]
+			gdzie
+			\begin{itemize}
+				\item $f\left(t\right)$ --- funkcja trendu,
+				\item $\epsilon_t$ --- składnik losowy.
+			\end{itemize}
+		\end{block}
 		
+		\begin{alert}{\textbf{Uwaga.}}
+			Nie czyni się żadnych założeń co do postaci składnika losowego w modelu
+			trendu.
+		\end{alert}
+	\end{frame}
+	
+	\begin{frame}{Model trendu}
+		\framesubtitle{Dobór funkcji trendu}
+		Funkcję trendu wybiera się bazując na:
+		\begin{itemize}
+			\item przesłankach teoretycznych,
+			\item analizie danych empirycznych,
+			\item badaniu przyrostów szeregów,
+			\item porównaniu kilku możliwych funkcji.
+		\end{itemize}
+		\begin{alert}{\textbf{Uwaga.}}
+			W praktyce jako funkcję trendu przyjmuje się najczęściej funkcję 
+			wielomianową. W szczególności funkcję liniową, będącą szczególnym
+			przypadkiem funkcji wielomianowej.
+		\end{alert}
+	\end{frame}
+	
+	\begin{frame}{Średnia ruchoma}
+		\framesubtitle{Definicja}
+		\begin{block}{\textbf{Średnia ruchoma}}
+			Średnią ruchomą rzędu $q$ szeregu czasowego $X_t$ nazwiemy statystykę 
+				postaci \[
+				\overline{X}_t =
+					\frac{1}{2q + 1} \sum_{\left|\tau\right| \leq q} X_{t-\tau},
+				\mbox{ gdy }q\mbox{ nieparzyste}
+			\]
+			lub \[
+				\overline{X}_t =
+					\frac{1}{2q} \left(
+						\frac{1}{2} X_{t-q} +
+						\sum_{\left|\tau\right| < q} X_{t-\tau} +
+						\frac{1}{2} X_{t+q}
+					\right),
+					\mbox{ gdy }q\mbox{ parzyste}.
+			\]
+		\end{block}
+		\begin{alert}{\textbf{Uwaga.}}
+			Przy odpowiednio dobranej wartości parametru $q$ zachodzi \[
+				m_t \approx \overline{X}_t.
+			\]
+		\end{alert}
+	\end{frame}
+	
+	\begin{frame}{Średnia ruchoma}
+		\framesubtitle{Dobór rzędu średniej ruchomej}
+		Przyjmijmy $s_t = 0.$ Zauważmy, że \begin{eqnarray*}
+			\overline{X}_t & = &
+				\frac{1}{2q + 1}
+				\sum_{\left|\tau\right| \leq q} \left(m_{t-\tau} + Y_{t-\tau}\right)\\
+			\overline{X}_t & = &
+				\frac{1}{2q + 1} \sum_{\left|\tau\right| \leq q} m_{t-\tau} +
+				\frac{1}{2q + 1} \sum_{\left|\tau\right| \leq q} Y_{t-\tau}
+		\end{eqnarray*}
+		Wówczas:
+		\begin{itemize}
+			\item dla małych $q:$
+				$\frac{1}{2q + 1} \sum_{\left|\tau\right| \leq q} m_{t-\tau} 
+				\approx m_t,$
+			\item dla dużych $q:$
+				$\frac{1}{2q + 1} \sum_{\left|\tau\right| \leq q} Y_{t-\tau} \approx 0.$
+		\end{itemize}
+		\begin{alert}{\textbf{Wniosek.}}
+			Rząd średniej ruchomej powinien być na tyle duży, by zmarginalizować 
+			znaczenie składowej $Y_t$ oraz na tyle mały, by nie zaburzyć zależności
+			$\overline{X}_t \approx m_t.$
+		\end{alert}
+	\end{frame}
+	
+	\begin{frame}{Różnicowanie}
+		Przyjmijmy $s_t = 0.$ Niech trend ma postać \[
+			m_t = \sum_{j=0}^{k} \beta_j t^j.
+		\]
+		Wówczas operacja $k$-krotnego różnicowania \[
+			\Delta^k X_t
+		\] pozwala wyeliminować trend z szeregu czasowego $X_t.$
+		\\~\\
+		\begin{alert}{\textbf{Wniosek.}}
+			W celu wyeliminowania trendu o postaci wielomianowej można zastosować
+			operację różnicowania szeregu.
+		\end{alert}
+	\end{frame}
+
+	\section{Estymacja składowej sezonowej}
+	
+	\begin{frame}{Przegląd metod}
+		W celu wyodrębnienia składowej sezonowej można:
+		\begin{itemize}
+			\item wykorzystać metodę wskaźników,
+			\item zastosować modele z sezonowymi zmiennymi binarnymi,
+			\item dokonać analizy harmonicznej szeregu czasowego,
+			\item ...
+		\end{itemize}
+
+		\begin{alert}{\textbf{Uwaga.}}
+			Zastsowanie metody wskaźników oraz modeli ze zmiennymi binarnymi wymaga
+			uprzedniego ustalenia okresu $s$ szeregu czasowego. Zastsowanie analiy
+			harmonicznej nie wiąże się z koniecznością uprzedniego określenia okresu
+			$s.$
+		\end{alert}
+	\end{frame}
+	
+	\begin{frame}{Model wskaźników}
+		\framesubtitle{Wskaźnik sezonowości}
+		\begin{block}{\textbf{Wskaźnik sezonowości}}
+			Wskaźnikiem sezonowości szeregu czasowego $X_t$ nazwiemy statystykę 
+			postaci\[
+				S_t = \frac{
+					\sum_{\tau=0}^{\frac{T}{s}-1} X_{t + s \tau}
+				}{
+					\sum_{\tau=0}^{\frac{T}{s}-1} \hat{X}_{t + s \tau}
+				},
+			\] gdzie
+			\begin{itemize}
+				\item $\hat{X}_t$ --- estymator $X_t.$
+			\end{itemize}
+		\end{block}
+		\begin{alert}{\textbf{Uwaga.}}
+			Wartość $\hat{X}_t$ uzyskać można poprzez zastosowanie modelu trendu lub
+			wyznaczenie średniej ruchomej.
+		\end{alert}
+	\end{frame}
+	
+	\begin{frame}{Model wskaźników}
+		\framesubtitle{Normalizacja}
+		Od wskaźników sezonowości oczekuje się, aby spełniały zależność \[
+			\sum_{j=1}^{s} S_j = s.
+		\]
+		W związku z czym dokonuje się ich normalizacji \[
+			S_j^n = \frac{s}{\sum_{j=1}^{s} S_j} \cdot S_j.
+		\]
+	\end{frame}
+	
+	\begin{frame}{Model wskaźników}
+		\framesubtitle{Składowa sezonowa}
+		Składową sezonową w oparciu o znormalizowane wskaźniki sezonowości
+		oblicza się ostatecznie jako \[
+			s_t = S_{t \bmod s} \overline{X} - \overline{X},
+		\] gdzie
+		\begin{itemize}
+			\item $\overline{X} = \sum_{t=1}^{T} X_t.$
+		\end{itemize}
+	\end{frame}
+	
+	\begin{frame}{Model z sezonowymi zmiennymi binarnymi}
+		\framesubtitle{Definicja}
+		\begin{block}{\textbf{Model z sezonowymi zmiennymi binarnymi}}
+			Modelem z sezonowymi zmiennymi binarnymi szeregu czasowego $X_t$ o 
+			sezonowości $s$ nazwiemy model postaci \[
+				X_t = f\left(t\right) + \sum_{i=1}^{s} \delta_i z_{i,t} + \epsilon_t,
+			\]
+			gdzie
+			\begin{itemize}
+				\item $f\left(t\right)$ --- funkcja trendu,
+				\item $z_{i,t}$ --- zmienna przyjmująca wartość $1$ dla $i$-tego momentu
+					okresu oraz $0$ w pozostałych przypadkach,
+				\item $\delta_i$ --- stały efekt sezonowy dla $i$-tego momentu okresu,
+				\item $\epsilon_t$ --- składnik losowy.
+			\end{itemize}
+		\end{block}
+	\end{frame}
+	
+	\begin{frame}{Model z sezonowymi zmiennymi binarnymi}
+		\framesubtitle{Estymacja}
+		\begin{alert}{\textbf{Uwaga.}}
+			Modelu z sezonowymi zmiennymi binarnymi nie da się estymować z 
+			wykorzystaniem klasycznej metody najmniejszych kwadratów z uwagi na
+			występowanie nim binarnych zmiennych sezonowych.
+		\end{alert}
+		\\~\\
+		W celu estymacji modelu z sezonowymi zmiennymi binarnymi za pomocą KMNK
+		usuwa się z niego zmienną $z_{s,t}.$ Stały efekt sezonowy dla $s$-tego
+		momentu okresu wylicza się wówczas z wzoru \[
+			\hat{\delta}_s = -\sum_{j=1}^{s-1} \hat{\delta}_j.
+		\]
+	\end{frame}
+	
+	\section{Algorytmy dekompozycji}
+
+	\begin{frame}{Algorytm Holta-Wintersa}
+		\framesubtitle{Algorytm}
+		Algorytm Holta-Wintersa dla klasycznego modelu dekompozycji szeregu 
+		czasowego o znanym okresie $d$ to układ rekurencyjnych równań 
+		postaci: \begin{eqnarray*}
+			\hat{m}_{t+1} & = &
+				\alpha \left(X_{t+1} - \hat{s}_{t+1-d}\right) +
+				\left(1 - \alpha\right) \left( \hat{m}_t + \hat{m}^{\prime}_t\right),\\
+			\hat{m}^{\prime}_{t+1} & = &
+				\beta \left(\hat{m}_{t+1} - \hat{m}_t\right) +
+				\left(1 - \beta\right) \hat{m}^{\prime}_t,\\
+			\hat{s}_{t+1} & = &
+				\gamma \left(X_{t+1} - \hat{m}_{t+1}\right) +
+				\left(1 - \gamma\right) \hat{s}_{t+1-d}.
+		\end{eqnarray*}
+		\begin{alert}{\textbf{Intuicja.}}
+			Algorytm Holta-Wintersa to iteracyjna metoda jednoczesnej estymacji 
+			składowej trendu oraz składowej sezonowej w klasycznym modelu 
+			dekompozycji szeregu czasowego.
+		\end{alert}
+	\end{frame}
+	
+	\begin{frame}{Algorytm Holta-Wintersa}
+		\framesubtitle{Wartości początkowe}
+		Wartości inicjalne algorytmu Holta-Wintersa obliczane są na podstawie 
+		pierwszych $d+1$ obserwacji analizowanego szeregu czasowego $X_t$ i 
+		przyjmują postać: \begin{eqnarray*}
+			\hat{m}_{d+1} & = & X_{d+1},\\
+			\hat{m}^{\prime}_{d+1} & = & \frac{X_{d+1} - X_1}{d},\\
+			\hat{s}_{\tau} & = & X_{\tau} -
+				\left(X_1 - \hat{m}^{\prime}_{d+1}\left(\tau - 1\right)\right), 
+				\tau = 1, 2, \ldots, d+1.
+		\end{eqnarray*}
+	\end{frame}
+	
+	\begin{frame}{Algorytm Holta-Wintersa}
+		\framesubtitle{Uwagi}
+		\begin{alert}{\textbf{Uwaga.}}
+			Algorytm Holta-Wintersa wykorzystuje w swoim działaniu zarówno wiedzę 
+			wynikającą z postaci klasycznego modelu dekompozycji, jak też wiedzę 
+			zawartą w analizowanej trajektorii szeregu czasowego $X_t.$
+		\end{alert}
+		\\~\\
+		\begin{alert}{\textbf{Uwaga.}}
+			Doboru wartości parametrów $\alpha,$ $\beta$ oraz $\gamma$ dokonuje się
+			poprzez minimalizację sumy \[
+				\sum_{t=d+2}^{T} \left(X_t - \hat{X}_t\right)^2,
+			\] której często dokonuje się w praktyce poprzez poszukiwanie po siatce.
+		\end{alert}
+		\\~\\
+		\begin{alert}{\textbf{Uwaga.}}
+			Przyjęcie $\alpha \in \left(0, 1\right)$ oraz $\beta = 0$ i $\gamma = 0$
+			sprowadza algorytm Holta-Wintersa do algorytmu estymacji składowej trendu
+			metodą wygładzania wykładniczego.
+		\end{alert}
+	\end{frame}
+
+	\begin{frame}{Algorytm pięciokrokowy}
+		\framesubtitle{Algorytm}
+		Rozważmy klasyczny model dekompozycji szeregu czasowego $X_t$ o znanym 
+		okresie $d$ oraz składowej sezonowej $s_t$ takie, że \[
+			\sum_{t=1}^{d} s_t = 0.
+		\]
+		Algorytm pięciokrokowy dekompozycji szeregu czsowego $X_t$ polega na 
+		wykonaniu poniższych pięciu kroków
+		\begin{enumerate}
+			\item Wstępnej estymacji trendu $m_t.$
+			\item Estymacji składowej sezonowej $s_t.$
+			\item Desezonalizacji szeregu $X_t$.
+			\item Parametrycznej estymacji składowej trendu $m_t.$
+			\item Dopasowaniu modelu procesu stacjonarnego $Y_t.$
+		\end{enumerate}
 	\end{frame}
 
 	\section*{}
