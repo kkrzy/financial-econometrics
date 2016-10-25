@@ -463,13 +463,64 @@
 		
 	\end{frame}
 	
-	\begin{frame}{Model GARCH-M}
+		\begin{frame}{Model GARCH-M}
+		\begin{block}{\textbf{Model GARCH-M}}
+			Szereg czasowy $y_t$ jest procesem $\mbox{GARCH-M}\left(p,q\right),$ jeżeli \begin{eqnarray*}
+				y_t & = & \lambda + \delta \sigma_t + r_t,\\
+				r_t & = & \sigma_t \epsilon_t,\\
+				\sigma^2_t & = & \alpha_0 + \sum_{j=1}^{q} \alpha_j r_{t-j}^2 + \sum_{j=1}^{p} \beta_j \sigma_{t-j}^2,
+			\end{eqnarray*} gdzie
+			\begin{itemize}
+				\item $\epsilon_t \mbox{ iid } \mbox{WN}\left(0, 1\right),$
+				\item $\alpha_0 > 0,$
+				\item $\alpha_j \geq 0$ dla $j=1,2,\ldots,q,$
+				\item $\beta_j \geq 0$ dla $j=1,2,\ldots,p,$
+				\item $\lambda, \delta$ stałe.
+			\end{itemize}
+		\end{block}
+	\end{frame}
+	
+	\begin{frame}{Właściwości}
+		\begin{itemize}
+			\item Model $\mbox{GARCH-M}\left(p,q\right)$ jest rozszerzeniem modelu $\mbox{GARCH}\left(p,q\right)$ o dodanie heteroskedastyczności do średniej równania.
+			\item Parametr $\lambda$ oznacza średnią modelu GARCH
+			\item Parametr $\sigma$ interpretowany jest jako współczynnik zmienności dla średniej.
+		\end{itemize}
 	\end{frame}
 	
 	\begin{frame}{Model EGARCH}
+		\begin{block}{\textbf{Model EGARCH}}
+			Szereg czasowy $r_t$ jest procesem $\mbox{EGARCH}\left(p,q\right),$ jeżeli \begin{eqnarray*}
+				r_t & = & \sigma_t \epsilon_t,\\
+				\ln\sigma^2_t & = & \alpha_0 + \sum_{j=1}^{q} \alpha_j r_{t-j}^2 + \sum_{j=1}^{p} \beta_j \ln\sigma_{t-j}^2,
+			\end{eqnarray*} gdzie
+			\begin{itemize}
+				\item $\epsilon_t \mbox{ iid } \mbox{WN}\left(0, 1\right),$
+				\item $\alpha_0 > 0,$
+				\item $\alpha_j \geq 0$ dla $j=1,2,\ldots,q,$
+				\item $\beta_j \geq 0$ dla $j=1,2,\ldots,p.$
+			\end{itemize}
+		\end{block}
 	\end{frame}
 	
 	\begin{frame}{Model TGARCH}
+		\begin{block}{\textbf{Model TGARCH}}
+			Szereg czasowy $r_t$ jest procesem $\mbox{TGARCH}\left(p,q\right),$ jeżeli \begin{eqnarray*}
+				r_t & = & \sigma_t \epsilon_t,\\
+				\sigma^2_t & = & \alpha_0 + \sum_{j=1}^{q} \alpha_j r_{t-j}^2 + \sum_{j=1}^{q} \alpha_j S_{t-j}r_{t-j}^2 + \sum_{j=1}^{p} \beta_j \sigma_{t-j}^2,
+			\end{eqnarray*} gdzie
+			\begin{itemize}
+				\item $\epsilon_t \mbox{ iid } \mbox{WN}\left(0, 1\right),$
+				\item $\alpha_0 > 0,$
+				\item $\alpha_j \geq 0$ dla $j=1,2,\ldots,q,$
+				\item $\beta_j \geq 0$ dla $j=1,2,\ldots,p,$
+				\item $S_{t-j} = 
+					\begin{cases}
+						1, & \mbox{dla } r_{t-j} < 0\\
+						0, & \mbox{dla } r_{t-j} \geq 0
+					\end{cases}$
+			\end{itemize}
+		\end{block}
 	\end{frame}
 	
 	\section{Model ECM}
