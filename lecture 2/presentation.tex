@@ -364,7 +364,7 @@
 		\end{block}
 		\begin{block}{\textbf{Problem}}
 			Występowanie efeków kalendarzowych na rynku finansowym stwarza warunki 
-			do budowania strategii inwestycyjnych pozwalających w którkim czasie 
+			do budowania strategii inwestycyjnych pozwalających w krótkim czasie 
 			osiągnąć zysk bez ponoszenia ryzyka. Efekty kalendarzowe mogą zatem
 			prowadzić do nieefektywności rynku finansowego.
 		\end{block}
@@ -386,13 +386,78 @@
 		\end{block}
 	\end{frame}
 	
-	\begin{frame}{Test 1}
+	\begin{frame}{Test równości średnich}
+		Testujemy hipotezę \[
+				\begin{cases}
+					H_{0}: & \mathbb{E}\left(y_i\right) = \mathbb{E}\left(y_j\right)\\
+					H_{1}: & \mathbb{E}\left(y_i\right) \neq \mathbb{E}\left(y_j\right),
+				\end{cases}
+			\]
+		wykorzystując w tym celu statystykę testową: \[
+				u=\frac{\overline{y}_i - \overline{y}_j}{ \sqrt{\frac{S_i^2}{T_i} + \frac{S_j^2}{T_j}}} ,
+			\]
+		gdzie:
+		\begin{itemize}
+			\item $\overline{y}_i$ --- średnia z obserwacji w szeregu z $i$-tego dnia tygodnia,
+			\item $S_i^2$ --- wariancja obserwacji w szeregu z $i$-tego dnia tygodnia,
+			\item $T_i$ --- liczba obserwacji w szeregu z $i$-tego dnia tygodnia,
+			\item $i,j$ --- poniedziałek, wtorek, środa, czwartek, piątek, przy czym $i \neq j$.
+		\end{itemize}
+		Dla dużej próby $u \sim \mathcal{N}\left(0,1\right).$
 	\end{frame}
 	
-	\begin{frame}{Test 2}
+	\begin{frame}{Test równości wariancji}
+		Testujemy hipotezę \[
+				\begin{cases}
+					H_{0}: & \sigma_1^2 = \sigma_2^2\\
+					H_{1}: & \sigma_1^2 > \sigma_2^2,
+				\end{cases}
+			\]
+		wykorzystując w tym celu statystykę testową: \[
+				F=\frac{\max\left(S_i^2, S_j^2\right)}{\min\left(S_i^2, S_j^2\right)}  \sim \mathbb{F}^{[T_i-1, T_j-1]},
+			\]
+		gdzie:
+		\begin{itemize}
+			\item $S_1^2$, $S_2^2$ --- wariancje wyznaczone z pierwszej i drugiej próby,
+			\item $T_1$, $T_2$ --- liczba obserwacji z pierwszej i drugiej grupy,
+			\item $i,j$ --- poniedziałek, wtorek, środa, czwartek, piątek, przy czym $i \neq j$.
+		\end{itemize}
+	\end{frame}	
+	
+	\begin{frame}{Test istotności współczynników regresji liniowej}
+		Rozważmy następujący model: \[
+			y_t = \alpha_1 PON_t + \alpha_2 WT_t + \alpha_3 SR_t + \alpha_4 CZW_t + \alpha_5 PT_t + \epsilon_t
+			\]
+		gdzie:
+		\begin{itemize}
+			\item $y_t$ --- obserwacja szeregu w okresie $t$,
+			\item $D_t =
+				\left\{ \begin{array}{ll} 
+					1,& \mbox{gdy rozważamy oberwacje z dnia } D\\
+					0,& \mbox{wpp.}
+				\end{array} \right.$, przy czym  $D \in \left(PON, WT, SR, CZW, PT\right)$,
+			\item $\alpha_i$ --- współczynniki regresji dla $i \in 1,2,\ldots,5$,
+			\item $\epsilon \sim \mathcal{N}(0,\sigma^2)$
+		\end{itemize}
 	\end{frame}
 	
-	\begin{frame}{Test 3}
+	\begin{frame}{Test istotności współczynników regresji liniowej}
+		\begin{block}{\textbf{Cel}}
+			Badanie, czy zmienna objaśniająca ma istotny wpływ na zmienną objaśnianą $y$.
+		\end{block}
+		Testujemy hipotezę \[  
+		                    H_{0}: \alpha_i = 0
+		                   \]
+		wobec hipotez alternatywnych \[ 
+		                              H_{1}: \alpha_i \neq 0, H_{1}: \alpha_i < 0, H_{1}: \alpha_i > 0,
+		                             \]
+		wykorzystując w tym celu statystykę testową \[
+			t=\frac{\hat{\alpha_i}}{S\left(\hat{\alpha_i}\right)} \sim t^{\left[n-k\right]},
+		\] gdzie
+		\begin{itemize}
+			\item $\hat{\alpha_i}$ --- wyestymowana wartość parametru $\alpha_i$,
+			\item $S(\hat{\alpha_i})$ --- błąd szacunku.
+		\end{itemize}
 	\end{frame}
 	
 	\section*{}
